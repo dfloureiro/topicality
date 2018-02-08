@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="country_names">
+        <item>UNITED ARAB EMIRATES</item>
+        <item>ARGENTINA</item>
+        <item>AUSTRIA</item>
+        <item>AUSTRALIA</item>
+        <item>BELGIUM</item>
+        <item>BULGARIA</item>
+        <item>BRAZIL</item>
+        <item>CANADA</item>
+        <item>SWITZERLAND</item>
+        <item>CHINA</item>
+        <item>COLOMBIA</item>
+        <item>CZECH REPUBLIC</item>
+        <item>GERMANY</item>
+        <item>EGYPT</item>
+        <item>FRANCE</item>
+        <item>UNITED KINGDOM</item>
+        <item>GREECE</item>
+        <item>HONG KONG</item>
+        <item>HUNGARY</item>
+        <item>INDONESIA</item>
+        <item>IRELAND</item>
+        <item>ISRAEL</item>
+        <item>INDIA</item>
+        <item>ITALY</item>
+        <item>JAPAN</item>
+        <item>KOREA, REPUBLIC OF</item>
+        <item>LITHUANIA</item>
+        <item>LATVIA</item>
+        <item>MOROCCO</item>
+        <item>MEXICO</item>
+        <item>MALAYSIA</item>
+        <item>NIGERIA</item>
+        <item>NETHERLANDS</item>
+        <item>NORWAY</item>
+        <item>NEW ZEALAND</item>
+        <item>PHILIPPINES</item>
+        <item>POLAND</item>
+        <item>PORTUGAL</item>
+        <item>ROMANIA</item>
+        <item>SERBIA</item>
+        <item>RUSSIAN FEDERATION</item>
+        <item>SENEGAL</item>
+        <item>SWEDEN</item>
+        <item>SINGAPORE</item>
+        <item>SLOVENIA</item>
+        <item>SLOVAKIA</item>
+        <item>THAILAND</item>
+        <item>TURKEY</item>
+        <item>TAIWAN</item>
+        <item>UKRAINE</item>
+        <item>UNITED STATES</item>
+        <item>VENEZUELA</item>
+        <item>SOUTH AFRICA</item>
+    </string-array>
+
+    <string-array name="country_codes">
+        <item>ae</item>
+        <item>ar</item>
+        <item>at</item>
+        <item>au</item>
+        <item>be</item>
+        <item>bg</item>
+        <item>br</item>
+        <item>ca</item>
+        <item>ch</item>
+        <item>cn</item>
+        <item>co</item>
+        <item>cz</item>
+        <item>de</item>
+        <item>eg</item>
+        <item>fr</item>
+        <item>gb</item>
+        <item>gr</item>
+        <item>hk</item>
+        <item>hu</item>
+        <item>id</item>
+        <item>ie</item>
+        <item>il</item>
+        <item>in</item>
+        <item>it</item>
+        <item>jp</item>
+        <item>kr</item>
+        <item>lt</item>
+        <item>lv</item>
+        <item>ma</item>
+        <item>mx</item>
+        <item>my</item>
+        <item>ng</item>
+        <item>nl</item>
+        <item>no</item>
+        <item>nz</item>
+        <item>ph</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>ro</item>
+        <item>rs</item>
+        <item>ru</item>
+        <item>sa</item>
+        <item>se</item>
+        <item>sg</item>
+        <item>si</item>
+        <item>sk</item>
+        <item>th</item>
+        <item>tr</item>
+        <item>tw</item>
+        <item>ua</item>
+        <item>us</item>
+        <item>ve</item>
+        <item>za</item>
+    </string-array>
+
+    <string-array name="language_names">
+        <item>English</item>
+        <item>Arabic</item>
+        <item>Chinese</item>
+        <item>Dutch</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Hebrew</item>
+        <item>Italian</item>
+        <item>Northern Sami</item>
+        <item>Norwegian</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Spanish</item>
+        <item>Urdu</item>
+    </string-array>
+
+    <string-array name="language_codes">
+        <item>en</item>
+        <item>ar</item>
+        <item>zh</item>
+        <item>nl</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>he</item>
+        <item>it</item>
+        <item>se</item>
+        <item>no</item>
+        <item>pt</item>
+        <item>ru</item>
+        <item>es</item>
+        <item>ud</item>
+    </string-array>
+
+</resources>

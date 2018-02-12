@@ -159,6 +159,8 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         if (presenter != null) {
             presenter.unsubscribe();
         }
+        articleCardsAdapter = null;
+        presenter = null;
     }
 
     @Override

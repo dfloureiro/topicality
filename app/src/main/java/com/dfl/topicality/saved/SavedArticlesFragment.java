@@ -104,5 +104,7 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
         if (presenter != null) {
             presenter.unsubscribe();
         }
+        savedArticlesAdapter = null;
+        presenter = null;
     }
 }

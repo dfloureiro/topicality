@@ -53,14 +53,12 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
         compositeDisposable.add(appDatabase.databaseArticleDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(databaseArticles -> {
-                            for (DatabaseArticle databaseArticle : databaseArticles) {
-                                if (!databaseArticleIdsList.contains(databaseArticle.getUrl())) {
-                                    view.addArticle(databaseArticle);
-                                    databaseArticleIdsList.add(databaseArticle.getUrl());
-                                }
-                            }
-                        },
+                .flatMapIterable(databaseArticles -> databaseArticles)
+                .filter(databaseArticle -> !databaseArticleIdsList.contains(databaseArticle.getUrl()))
+                .subscribe(databaseArticle -> {
+                    view.addArticle(databaseArticle);
+                    databaseArticleIdsList.add(databaseArticle.getUrl());
+                },
                         throwable -> Log.e("error", throwable.getMessage())));
     }
 

@@ -24,7 +24,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
     private ArrayList<String> databaseArticleIdsList;
     private final CompositeDisposable compositeDisposable;
 
-    public SavedArticlesPresenter(SavedArticlesContract.View view, AppDatabase appDatabase){
+    public SavedArticlesPresenter(SavedArticlesContract.View view, AppDatabase appDatabase) {
         this.view = view;
         this.appDatabase = appDatabase;
 
@@ -54,24 +54,25 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(databaseArticles -> {
-                    for(DatabaseArticle databaseArticle : databaseArticles){
-                        if(!databaseArticleIdsList.contains(databaseArticle.getUrl())){
-                            view.addArticle(databaseArticle);
-                            databaseArticleIdsList.add(databaseArticle.getUrl());
-                        }
-                    }
+                            for (DatabaseArticle databaseArticle : databaseArticles) {
+                                if (!databaseArticleIdsList.contains(databaseArticle.getUrl())) {
+                                    view.addArticle(databaseArticle);
+                                    databaseArticleIdsList.add(databaseArticle.getUrl());
+                                }
+                            }
                         },
                         throwable -> Log.e("error", throwable.getMessage())));
     }
 
     @Override
-    public void deleteArticle(String url, int viewHolderPosition){
+    public void deleteArticle(String url, int viewHolderPosition) {
         compositeDisposable.add(Completable.fromAction(() ->
                 appDatabase.databaseArticleDao().deleteWhereUrl(url))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {view.removeArticle(viewHolderPosition);
-                databaseArticleIdsList.remove(viewHolderPosition);
+                .subscribe(() -> {
+                            view.removeArticle(viewHolderPosition);
+                            databaseArticleIdsList.remove(viewHolderPosition);
                         },
                         throwable -> Log.e("error", throwable.getMessage())));
     }

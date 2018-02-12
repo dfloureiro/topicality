@@ -13,13 +13,12 @@
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/wizard_tab_selector"
         app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"/>
+        app:tabIndicatorHeight="0dp" />
 
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/wizard_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tabDots"/>
+        android:layout_above="@+id/tabDots" />
 
 </RelativeLayout>

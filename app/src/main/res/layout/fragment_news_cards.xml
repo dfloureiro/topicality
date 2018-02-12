@@ -24,7 +24,7 @@
         app:leftOverlay="@layout/card_overlay_ignore"
         app:bottomOverlay="@layout/card_overlay_save"
         app:topOverlay="@layout/card_overlay_ignore"
-        app:rightOverlay="@layout/card_overlay_ignore"/>
+        app:rightOverlay="@layout/card_overlay_ignore" />
 
     <ProgressBar
         android:id="@+id/main_fragment_progress_bar"

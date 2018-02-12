@@ -17,26 +17,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by loureiro on 28-01-2018.
  */
 
-public class NetworkModule {
+class NetworkModule {
 
     private final static String BASE_URL = "https://newsapi.org/";
-    private final static String API_KEY = "a9b9d5c92bc249ac976e796fb79d7a33";
+    private String apiKey;
 
-    private static NetworkModule instance;
     private NewsApi newsApi;
 
-    private NetworkModule() {
+    NetworkModule(String apiKey) {
+        this.apiKey = apiKey;
         setRetrofit();
     }
 
-    static NetworkModule newInstance() {
-        if (instance == null) {
-            instance = new NetworkModule();
-        }
-        return instance;
-    }
-
-    private static Interceptor provideCacheInterceptor() {
+    private Interceptor provideCacheInterceptor() {
         return chain -> {
             Response response = chain.proceed(chain.request());
             CacheControl cacheControl = new CacheControl.Builder().maxAge(2, TimeUnit.MINUTES)
@@ -47,9 +40,9 @@ public class NetworkModule {
         };
     }
 
-    private static Interceptor provideApiKeyInterceptor() {
+    private Interceptor provideApiKeyInterceptor() {
         return chain -> {
-            Request request = chain.request().newBuilder().addHeader("X-Api-Key", API_KEY).build();
+            Request request = chain.request().newBuilder().addHeader("X-Api-Key", apiKey).build();
             return chain.proceed(request);
         };
     }

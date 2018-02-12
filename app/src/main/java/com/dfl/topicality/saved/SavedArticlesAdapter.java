@@ -19,7 +19,7 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
     private final List<DatabaseArticle> databaseArticleList;
     private RequestManager requestManager;
 
-    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, RequestManager requestManager){
+    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, RequestManager requestManager) {
         this.databaseArticleList = databaseArticleList;
         this.requestManager = requestManager;
     }
@@ -33,7 +33,7 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
     @Override
     public void onBindViewHolder(SavedArticleViewHolder holder, int position) {
         DatabaseArticle databaseArticle = databaseArticleList.get(position);
-        holder.setImage(requestManager,databaseArticle.getUrlToImage());
+        holder.setImage(requestManager, databaseArticle.getUrlToImage());
         holder.setTitle(databaseArticle.getTitle());
         holder.setSourceName(databaseArticle.getSourceName());
         holder.setUrl(databaseArticle.getUrl());
@@ -49,7 +49,7 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
         notifyItemInserted(getItemCount());
     }
 
-    void deleteDatabaseArticle(int index){
+    void deleteDatabaseArticle(int index) {
         databaseArticleList.remove(index);
         notifyItemRemoved(index);
     }

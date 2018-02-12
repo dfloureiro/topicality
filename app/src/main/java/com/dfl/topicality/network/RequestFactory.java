@@ -11,12 +11,18 @@ import io.reactivex.Flowable;
 
 public class RequestFactory {
 
+    private NetworkModule networkModule;
+
+    public RequestFactory(String apiKey) {
+        networkModule = new NetworkModule(apiKey);
+    }
+
     public Flowable<SourcesResponse> getSources(String category, String language, String country) {
-        return NetworkModule.newInstance().getNewsApi().getSources(category, language, country);
+        return networkModule.getNewsApi().getSources(category, language, country);
     }
 
     public Flowable<ArticlesResponse> getTopHeadlines(String category, String country, String sources, String q, int pagesize, int page) {
-        return NetworkModule.newInstance().getNewsApi().getTopHeadlines(category, country, sources, q, pagesize, page);
+        return networkModule.getNewsApi().getTopHeadlines(category, country, sources, q, pagesize, page);
     }
 
 }

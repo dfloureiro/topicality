@@ -1,10 +1,6 @@
 package com.dfl.topicality.saved;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,11 +36,11 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
 
     private String url;
 
-    public SavedArticleViewHolder(View itemView) {
+    SavedArticleViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
-        itemView.setOnClickListener(v -> ChromePagesHelper.openChromePageHelper(itemView.getContext(),getUrl()));
+        itemView.setOnClickListener(v -> ChromePagesHelper.openChromePageHelper(itemView.getContext(), getUrl()));
     }
 
     public void setImage(RequestManager requestManager, String urlToImage) {

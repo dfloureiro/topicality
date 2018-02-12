@@ -12,14 +12,14 @@ import com.dfl.topicality.R;
  * Created by loureiro on 01-02-2018.
  */
 
-public class WizardWelcomeFragment extends Fragment{
+public class WizardWelcomeFragment extends Fragment {
 
 
-    public WizardWelcomeFragment(){
+    public WizardWelcomeFragment() {
 
     }
 
-    public static WizardWelcomeFragment newInstance(){
+    public static WizardWelcomeFragment newInstance() {
         return new WizardWelcomeFragment();
     }
 

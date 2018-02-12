@@ -35,11 +35,11 @@ public class WizardPreferencesFragment extends Fragment {
 
     private Unbinder unbinder;
 
-    public WizardPreferencesFragment(){
+    public WizardPreferencesFragment() {
 
     }
 
-    public static WizardPreferencesFragment newInstance(){
+    public static WizardPreferencesFragment newInstance() {
         return new WizardPreferencesFragment();
     }
 
@@ -61,8 +61,8 @@ public class WizardPreferencesFragment extends Fragment {
 
         String[] countryNames = getResources().getStringArray(R.array.country_names);
         String[] countryCodes = getResources().getStringArray(R.array.country_codes);
-        for(int position = 0; position < countryCodes.length; position++){
-            if(Arrays.asList(countryCodes).get(position).equalsIgnoreCase(locale)){
+        for (int position = 0; position < countryCodes.length; position++) {
+            if (Arrays.asList(countryCodes).get(position).equalsIgnoreCase(locale)) {
                 countrySpinner.setSelection(position);
                 position = countryCodes.length;
                 // TODO: 01-02-2018 save country code
@@ -71,8 +71,8 @@ public class WizardPreferencesFragment extends Fragment {
 
         String[] languageNames = getResources().getStringArray(R.array.language_names);
         String[] languageCodes = getResources().getStringArray(R.array.language_codes);
-        for(int position = 0; position < languageCodes.length; position++){
-            if(Arrays.asList(languageCodes).get(position).equalsIgnoreCase(language)){
+        for (int position = 0; position < languageCodes.length; position++) {
+            if (Arrays.asList(languageCodes).get(position).equalsIgnoreCase(language)) {
                 languageSpinner.setSelection(position);
                 position = languageCodes.length;
                 // TODO: 01-02-2018 save language code
@@ -81,7 +81,7 @@ public class WizardPreferencesFragment extends Fragment {
     }
 
     @OnClick(R.id.wizard_finish_button)
-    void onClickFinishButton(){
+    void onClickFinishButton() {
         Intent myIntent = new Intent(getActivity(), MainActivity.class);
         getActivity().startActivity(myIntent);
         getActivity().finish();

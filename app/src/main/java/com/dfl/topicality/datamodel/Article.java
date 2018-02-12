@@ -1,7 +1,6 @@
 package com.dfl.topicality.datamodel;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -78,7 +77,8 @@ public class Article {
         this.description = description;
     }
 
-    @NonNull public String getUrl() {
+    @NonNull
+    public String getUrl() {
         return url;
     }
 

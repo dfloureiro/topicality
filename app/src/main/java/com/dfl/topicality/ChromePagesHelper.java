@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 
 public class ChromePagesHelper {
 
-    public static void openChromePageHelper(Context context, @NonNull String url){
+    public static void openChromePageHelper(Context context, @NonNull String url) {
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         builder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary));
         CustomTabsIntent customTabsIntent = builder.build();

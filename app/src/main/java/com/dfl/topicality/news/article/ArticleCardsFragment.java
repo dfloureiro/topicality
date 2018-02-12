@@ -94,7 +94,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             @Override
             public void onCardSwiped(SwipeDirection direction) {
                 int index = cardStackView.getTopIndex()-1;
-                if(direction.equals(SwipeDirection.Right) && articleCardsAdapter.getCount()>index){
+                if(direction.equals(SwipeDirection.Bottom) && articleCardsAdapter.getCount()>index){
                     presenter.saveArticle(articleCardsAdapter.getItem(index));
                 }
                 if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {

@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
+import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
 import com.dfl.topicality.TopicalityApplication;
 import com.dfl.topicality.database.DatabaseArticle;
@@ -33,6 +33,7 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
 
     private SavedArticlesAdapter savedArticlesAdapter;
     private SavedArticlesContract.Presenter presenter;
+    private ImageLoader imageLoader;
 
     private Unbinder unbinder;
 
@@ -57,8 +58,9 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        imageLoader = new ImageLoader(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), Glide.with(this));
+        savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), imageLoader);
         recyclerView.setAdapter(savedArticlesAdapter);
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
@@ -106,5 +108,6 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
         }
         savedArticlesAdapter = null;
         presenter = null;
+        imageLoader = null;
     }
 }

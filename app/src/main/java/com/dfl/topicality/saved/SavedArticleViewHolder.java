@@ -1,23 +1,17 @@
 package com.dfl.topicality.saved;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.dfl.topicality.ChromePagesHelper;
+import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.annotations.Nullable;
 
 /**
  * Created by loureiro on 31-01-2018.
@@ -43,24 +37,8 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> ChromePagesHelper.openChromePageHelper(itemView.getContext(), getUrl()));
     }
 
-    public void setImage(RequestManager requestManager, String urlToImage) {
-        requestManager.load(urlToImage).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                if (progressBar != null) {
-                    progressBar.setVisibility(View.GONE);
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                if (progressBar != null) {
-                    progressBar.setVisibility(View.GONE);
-                }
-                return false;
-            }
-        }).into(this.image);
+    public void setImage(ImageLoader imageLoader, String urlToImage) {
+        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage,progressBar,image);
     }
 
     public void setTitle(String title) {

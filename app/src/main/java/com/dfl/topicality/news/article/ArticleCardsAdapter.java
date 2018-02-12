@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
 import com.dfl.topicality.datamodel.Article;
 
@@ -16,8 +17,11 @@ import com.dfl.topicality.datamodel.Article;
 
 public class ArticleCardsAdapter extends ArrayAdapter<Article> {
 
+    private ImageLoader imageLoader;
+
     ArticleCardsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
+        imageLoader = new ImageLoader(getContext());
     }
 
     @NonNull
@@ -38,7 +42,7 @@ public class ArticleCardsAdapter extends ArrayAdapter<Article> {
 
         if (article != null) {
             articleCardViewHolder.setTitle(article.getTitle());
-            articleCardViewHolder.setUrlToImage(getContext(), article.getUrlToImage());
+            articleCardViewHolder.setUrlToImage(imageLoader, article.getUrlToImage());
         }
 
         return contentView;

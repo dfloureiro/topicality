@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.RequestManager;
+import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
 import com.dfl.topicality.database.DatabaseArticle;
 
@@ -17,11 +17,11 @@ import java.util.List;
 public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewHolder> {
 
     private final List<DatabaseArticle> databaseArticleList;
-    private RequestManager requestManager;
+    private ImageLoader imageLoader;
 
-    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, RequestManager requestManager) {
+    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, ImageLoader imageLoader) {
         this.databaseArticleList = databaseArticleList;
-        this.requestManager = requestManager;
+        this.imageLoader = imageLoader;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
     @Override
     public void onBindViewHolder(SavedArticleViewHolder holder, int position) {
         DatabaseArticle databaseArticle = databaseArticleList.get(position);
-        holder.setImage(requestManager, databaseArticle.getUrlToImage());
+        holder.setImage(imageLoader, databaseArticle.getUrlToImage());
         holder.setTitle(databaseArticle.getTitle());
         holder.setSourceName(databaseArticle.getSourceName());
         holder.setUrl(databaseArticle.getUrl());

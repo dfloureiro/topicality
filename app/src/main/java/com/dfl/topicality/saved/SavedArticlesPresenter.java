@@ -2,12 +2,10 @@ package com.dfl.topicality.saved;
 
 import android.util.Log;
 
-import com.dfl.topicality.database.AppDatabase;
-import com.dfl.topicality.database.DatabaseArticle;
+import com.dfl.topicality.database.DatabaseInteractor;
 
 import java.util.ArrayList;
 
-import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -19,14 +17,14 @@ import io.reactivex.schedulers.Schedulers;
 public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
 
     private SavedArticlesContract.View view;
-    private AppDatabase appDatabase;
+    private DatabaseInteractor databaseInteractor;
 
     private ArrayList<String> databaseArticleIdsList;
     private final CompositeDisposable compositeDisposable;
 
-    public SavedArticlesPresenter(SavedArticlesContract.View view, AppDatabase appDatabase) {
+    SavedArticlesPresenter(SavedArticlesContract.View view, DatabaseInteractor databaseInteractor) {
         this.view = view;
-        this.appDatabase = appDatabase;
+        this.databaseInteractor = databaseInteractor;
 
         databaseArticleIdsList = new ArrayList<>();
         compositeDisposable = new CompositeDisposable();
@@ -50,22 +48,21 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
 
     @Override
     public void getAllArticles() {
-        compositeDisposable.add(appDatabase.databaseArticleDao().getAll()
+        compositeDisposable.add(databaseInteractor.getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapIterable(databaseArticles -> databaseArticles)
                 .filter(databaseArticle -> !databaseArticleIdsList.contains(databaseArticle.getUrl()))
                 .subscribe(databaseArticle -> {
-                    view.addArticle(databaseArticle);
-                    databaseArticleIdsList.add(databaseArticle.getUrl());
-                },
+                            view.addArticle(databaseArticle);
+                            databaseArticleIdsList.add(databaseArticle.getUrl());
+                        },
                         throwable -> Log.e("error", throwable.getMessage())));
     }
 
     @Override
     public void deleteArticle(String url, int viewHolderPosition) {
-        compositeDisposable.add(Completable.fromAction(() ->
-                appDatabase.databaseArticleDao().deleteWhereUrl(url))
+        compositeDisposable.add(databaseInteractor.deleteWhereUrl(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {

@@ -38,7 +38,7 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImage(ImageLoader imageLoader, String urlToImage) {
-        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage,progressBar,image);
+        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage, progressBar, image);
     }
 
     public void setTitle(String title) {

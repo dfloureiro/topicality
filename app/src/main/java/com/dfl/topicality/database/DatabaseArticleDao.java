@@ -14,7 +14,7 @@ import io.reactivex.Flowable;
  */
 
 @Dao
-public interface DatabaseArticleDao {
+interface DatabaseArticleDao {
 
     @Query("SELECT * FROM databasearticle")
     Flowable<List<DatabaseArticle>> getAll();

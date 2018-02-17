@@ -25,14 +25,13 @@ public class ImageLoader {
     private RequestManager requestManager;
 
     /**
-     *
      * @param context Should pass the current context, not the application context.
      */
-    public ImageLoader(Context context){
-       this.requestManager = Glide.with(context);
+    public ImageLoader(Context context) {
+        this.requestManager = Glide.with(context);
     }
 
-    public void loadImageIntoImageViewWithProgressBar(String urlToImage, ProgressBar progressBar, ImageView imageView){
+    public void loadImageIntoImageViewWithProgressBar(String urlToImage, ProgressBar progressBar, ImageView imageView) {
         RequestOptions options = new RequestOptions();
         requestManager.load(urlToImage).apply(options.centerCrop()).listener(new RequestListener<Drawable>() {
             @Override

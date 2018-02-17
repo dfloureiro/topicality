@@ -17,6 +17,8 @@ import com.dfl.topicality.news.article.ArticleCardsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dfl.com.newsapikotin.enums.Category;
+import dfl.com.newsapikotin.enums.Country;
 
 /**
  * Created by loureiro on 30-01-2018.
@@ -30,6 +32,8 @@ public class NewsFragment extends Fragment {
     UnscrollableViewPager viewPager;
 
     private Unbinder unbinder;
+
+    private Country country;
 
     public NewsFragment() {
 
@@ -51,6 +55,7 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        country = Country.PT;
         viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -71,21 +76,21 @@ public class NewsFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ArticleCardsFragment.newInstance("general", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.GENERAL, country, null, null);
                 case 1:
-                    return ArticleCardsFragment.newInstance("sports", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.SPORTS, country, null, null);
                 case 2:
-                    return ArticleCardsFragment.newInstance("technology", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.TECHNOLOGY, country, null, null);
                 case 3:
-                    return ArticleCardsFragment.newInstance("business", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.BUSINESS, country, null, null);
                 case 4:
-                    return ArticleCardsFragment.newInstance("entertainment", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.ENTERTAINMENT, country, null, null);
                 case 5:
-                    return ArticleCardsFragment.newInstance("science", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.SCIENCE, country, null, null);
                 case 6:
-                    return ArticleCardsFragment.newInstance("health", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.HEALTH, country, null, null);
                 default:
-                    return ArticleCardsFragment.newInstance("general", "pt", null, null);
+                    return ArticleCardsFragment.newInstance(Category.GENERAL, country, null, null);
             }
         }
 

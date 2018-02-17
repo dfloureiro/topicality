@@ -11,18 +11,18 @@ import android.widget.ProgressBar;
 import com.dfl.topicality.ChromePagesHelper;
 import com.dfl.topicality.R;
 import com.dfl.topicality.TopicalityApplication;
-import com.dfl.topicality.datamodel.Article;
+import com.dfl.topicality.database.DatabaseArticle;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.SwipeDirection;
 
-import org.parceler.Parcels;
-
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dfl.com.newsapikotin.enums.Category;
+import dfl.com.newsapikotin.enums.Country;
 
 /**
  * Created by loureiro on 29-01-2018.
@@ -40,8 +40,8 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     @BindView(R.id.main_fragment_progress_bar)
     ProgressBar progressBar;
 
-    private String category;
-    private String country;
+    private Category category;
+    private Country country;
     private String sources;
     private String q;
 
@@ -54,10 +54,10 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     }
 
-    public static ArticleCardsFragment newInstance(String category, String country, String sources, String q) {
+    public static ArticleCardsFragment newInstance(Category category, Country country, String sources, String q) {
         Bundle bundle = new Bundle();
-        bundle.putString(CATEGORY_KEY, category);
-        bundle.putString(COUNTRY_KEY, country);
+        bundle.putString(CATEGORY_KEY, category.name());
+        bundle.putString(COUNTRY_KEY, country.name());
         bundle.putString(SOURCES_KEY, sources);
         bundle.putString(Q_KEY, q);
         ArticleCardsFragment articleCardsFragment = new ArticleCardsFragment();
@@ -78,8 +78,8 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
-            category = getArguments().getString(CATEGORY_KEY, null);
-            country = getArguments().getString(COUNTRY_KEY, null);
+            category = Category.valueOf(getArguments().getString(CATEGORY_KEY, null));
+            country = Country.valueOf(getArguments().getString(COUNTRY_KEY, null));
             sources = getArguments().getString(SOURCES_KEY, null);
             q = getArguments().getString(Q_KEY, null);
         }
@@ -120,21 +120,20 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         });
 
         presenter = new ArticleCardsPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getRequestFactory(),
-                ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, sources, q);
-        presenter.subscribe(savedInstanceState != null ? Parcels.unwrap(
-                savedInstanceState.getParcelable(ArticleCardsState.ARTICLE_CARDS_STATE)) : null);
+                ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, q);
+        presenter.subscribe(savedInstanceState != null ? savedInstanceState.getParcelable(ArticleCardsState.ARTICLE_CARDS_STATE) : null);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (presenter != null) {
-            outState.putParcelable(ArticleCardsState.ARTICLE_CARDS_STATE, Parcels.wrap(presenter.getState()));
+            outState.putParcelable(ArticleCardsState.ARTICLE_CARDS_STATE, presenter.getState());
         }
     }
 
     @Override
-    public void addArticles(List<Article> articles) {
+    public void addArticles(List<DatabaseArticle> articles) {
         cardStackView.setPaginationReserved();
         articleCardsAdapter.addAll(articles);
         articleCardsAdapter.notifyDataSetChanged();
@@ -143,8 +142,8 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     }
 
     @Override
-    public LinkedList<Article> extractRemainingArticles() {
-        LinkedList<Article> articles = new LinkedList<>();
+    public List<DatabaseArticle> extractRemainingArticles() {
+        List<DatabaseArticle> articles = new ArrayList<>();
         if (cardStackView != null && articleCardsAdapter != null) {
             for (int i = cardStackView.getTopIndex(); i < articleCardsAdapter.getCount(); i++) {
                 articles.add(articleCardsAdapter.getItem(i));

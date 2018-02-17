@@ -9,13 +9,13 @@ import android.widget.ArrayAdapter;
 
 import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
-import com.dfl.topicality.datamodel.Article;
+import com.dfl.topicality.database.DatabaseArticle;
 
 /**
  * Created by loureiro on 29-01-2018.
  */
 
-public class ArticleCardsAdapter extends ArrayAdapter<Article> {
+public class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
 
     private ImageLoader imageLoader;
 
@@ -38,7 +38,7 @@ public class ArticleCardsAdapter extends ArrayAdapter<Article> {
             articleCardViewHolder = (ArticleCardViewHolder) contentView.getTag();
         }
 
-        Article article = getItem(position);
+        DatabaseArticle article = getItem(position);
 
         if (article != null) {
             articleCardViewHolder.setTitle(article.getTitle());
@@ -47,6 +47,4 @@ public class ArticleCardsAdapter extends ArrayAdapter<Article> {
 
         return contentView;
     }
-
-
 }

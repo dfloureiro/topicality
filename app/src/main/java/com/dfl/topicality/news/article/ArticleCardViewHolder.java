@@ -33,6 +33,6 @@ public class ArticleCardViewHolder {
     }
 
     void setUrlToImage(ImageLoader imageLoader, String urlToImage) {
-        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage,progressBar,imageViewCard);
+        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage, progressBar, imageViewCard);
     }
 }

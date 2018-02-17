@@ -7,9 +7,8 @@ package com.dfl.topicality.news.article;
 import com.dfl.topicality.base.BasePresenter;
 import com.dfl.topicality.base.BaseState;
 import com.dfl.topicality.base.BaseView;
-import com.dfl.topicality.datamodel.Article;
+import com.dfl.topicality.database.DatabaseArticle;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,9 +21,9 @@ public interface ArticleCardsContract {
 
     interface View extends BaseView {
 
-        void addArticles(List<Article> articles);
+        void addArticles(List<DatabaseArticle> articles);
 
-        LinkedList<Article> extractRemainingArticles();
+        List<DatabaseArticle> extractRemainingArticles();
     }
 
     interface Presenter extends BasePresenter<State> {
@@ -38,14 +37,13 @@ public interface ArticleCardsContract {
 
         void getTopHeadlineArticles();
 
-        void saveArticle(Article article);
+        void saveArticle(DatabaseArticle article);
     }
 
     interface State extends BaseState {
 
         int getPage();
 
-        List<Article> getRemainingArticles();
-
+        List<DatabaseArticle> getRemainingArticles();
     }
 }

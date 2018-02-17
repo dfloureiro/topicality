@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.dfl.topicality"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -55,14 +55,6 @@ dependencies {
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
 
-    //RETROFIT 2
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
-    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
-
-    //PARCELER
-    implementation "org.parceler:parceler-api:${PARCELER_VERSION}"
-    annotationProcessor "org.parceler:parceler:${PARCELER_VERSION}"
-
     //GLIDE
     implementation "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
     annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
@@ -77,4 +69,7 @@ dependencies {
     implementation("com.yuyakaido.android:card-stack-view:${CARDSTACK_VERSION}") {
         exclude group: 'com.android.support', module: 'support-v4'
     }
+
+    //API
+    implementation 'com.github.dfloureiro:news-api-kotlin:v1.0'
 }

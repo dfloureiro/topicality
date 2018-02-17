@@ -3,6 +3,8 @@ package com.dfl.topicality.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
@@ -10,7 +12,7 @@ import android.support.annotation.NonNull;
  */
 
 @Entity
-public class DatabaseArticle {
+public class DatabaseArticle implements Parcelable {
 
     @NonNull
     @PrimaryKey
@@ -37,6 +39,45 @@ public class DatabaseArticle {
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
     }
+
+    private DatabaseArticle(Parcel in) {
+        url = in.readString();
+        sourceName = in.readString();
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+    }
+
+    public static final Creator<DatabaseArticle> CREATOR = new Creator<DatabaseArticle>() {
+        @Override
+        public DatabaseArticle createFromParcel(Parcel in) {
+            return new DatabaseArticle(in);
+        }
+
+        @Override
+        public DatabaseArticle[] newArray(int size) {
+            return new DatabaseArticle[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(url);
+        dest.writeString(sourceName);
+        dest.writeString(author);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(urlToImage);
+        dest.writeString(publishedAt);
+    }
+
 
     @NonNull
     public String getUrl() {

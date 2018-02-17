@@ -1,10 +1,10 @@
 package com.dfl.topicality;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
 
-import com.dfl.topicality.database.AppDatabase;
-import com.dfl.topicality.network.RequestFactory;
+import com.dfl.topicality.database.DatabaseInteractor;
+
+import dfl.com.newsapikotin.NewsApi;
 
 /**
  * Created by loureiro on 31-01-2018.
@@ -12,19 +12,19 @@ import com.dfl.topicality.network.RequestFactory;
 
 public class TopicalityApplication extends Application {
 
-    private AppDatabase database;
-    private RequestFactory requestFactory;
+    private DatabaseInteractor databaseInteractor;
+    private NewsApi requestFactory;
 
-    public AppDatabase getDatabase() {
-        if (database == null) {
-            database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "topicality_saved_articles_database").build();
+    public DatabaseInteractor getDatabase() {
+        if (databaseInteractor == null) {
+            databaseInteractor = new DatabaseInteractor(getApplicationContext());
         }
-        return database;
+        return databaseInteractor;
     }
 
-    public RequestFactory getRequestFactory() {
+    public NewsApi getRequestFactory() {
         if (requestFactory == null) {
-            requestFactory = new RequestFactory("a9b9d5c92bc249ac976e796fb79d7a33");
+            requestFactory = new NewsApi("a9b9d5c92bc249ac976e796fb79d7a33", 60, 10 * 1024 * 1024L, 45L, 45L);
         }
         return requestFactory;
     }

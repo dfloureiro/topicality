@@ -61,8 +61,8 @@ dependencies {
 
     //ROOM
     implementation "android.arch.persistence.room:runtime:${ROOM_VERSION}"
-    annotationProcessor "android.arch.persistence.room:compiler:${ROOM_VERSION}"
     implementation "android.arch.persistence.room:rxjava2:${ROOM_VERSION}"
+    annotationProcessor "android.arch.persistence.room:compiler:${ROOM_ANNOTATION_VERSION}"
     implementation "android.arch.lifecycle:reactivestreams:${ROOM_REACTIVE_VERSION}"
 
     //CARD STACK VIEW
@@ -71,5 +71,5 @@ dependencies {
     }
 
     //API
-    implementation 'com.github.dfloureiro:news-api-kotlin:v1.1'
+    implementation "com.github.dfloureiro:news-api-kotlin:${NEWS_API_KOTLIN_VERSION}"
 }

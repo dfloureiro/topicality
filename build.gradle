@@ -45,6 +45,9 @@ ext {
 
     GLIDE_VERSION = '4.5.0'
 
-    ROOM_VERSION = '1.1.0-alpha1'
+    ROOM_VERSION = '1.1.0-alpha2'
+    ROOM_ANNOTATION_VERSION = '1.1.0-alpha1'
     ROOM_REACTIVE_VERSION = '1.1.0'
+
+    NEWS_API_KOTLIN_VERSION = 'v1.1'
 }

@@ -59,8 +59,9 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         imageLoader = new ImageLoader(getActivity());
+        presenter = new SavedArticlesPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getDatabase());
         recyclerView.setLayoutManager(layoutManager);
-        savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), imageLoader);
+        savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), imageLoader, presenter);
         recyclerView.setAdapter(savedArticlesAdapter);
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
@@ -79,7 +80,6 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        presenter = new SavedArticlesPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getDatabase());
         presenter.subscribe(null);
     }
 

@@ -32,6 +32,7 @@ public interface SavedArticlesContract {
 
         void deleteArticle(String url, int viewHolderPosition);
 
+        void upsertFavoriteSourceClicks(String sourceDomain);
     }
 
     interface State extends BaseState {

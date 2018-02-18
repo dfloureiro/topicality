@@ -67,7 +67,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
 
     @Override
     public void saveArticle(DatabaseArticle article) {
-        compositeDisposable.add(databaseInteractor.insertAll(article)
+        compositeDisposable.add(databaseInteractor.insertAllDatabaseArticles(article)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> Log.d("done", "article inserted"),
@@ -85,5 +85,14 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                             page++;
                         },
                         error -> Log.e("ERROR", "my error: " + error.getMessage())));
+    }
+
+    @Override
+    public void upsertFavoriteSourceClicks(String sourceDomain) {
+        compositeDisposable.add(databaseInteractor.upsertFavoriteSources(sourceDomain)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d("done", "favorite source updated"),
+                        throwable -> Log.e("error", throwable.getMessage())));
     }
 }

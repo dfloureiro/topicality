@@ -48,7 +48,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
 
     @Override
     public void getAllArticles() {
-        compositeDisposable.add(databaseInteractor.getAll()
+        compositeDisposable.add(databaseInteractor.getAllDatabaseArticles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapIterable(databaseArticles -> databaseArticles)
@@ -62,13 +62,22 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
 
     @Override
     public void deleteArticle(String url, int viewHolderPosition) {
-        compositeDisposable.add(databaseInteractor.deleteWhereUrl(url)
+        compositeDisposable.add(databaseInteractor.deleteDatabaseArticleWhereUrl(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                             view.removeArticle(viewHolderPosition);
                             databaseArticleIdsList.remove(viewHolderPosition);
                         },
+                        throwable -> Log.e("error", throwable.getMessage())));
+    }
+
+    @Override
+    public void upsertFavoriteSourceClicks(String sourceDomain) {
+        compositeDisposable.add(databaseInteractor.upsertFavoriteSources(sourceDomain)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d("done", "article inserted"),
                         throwable -> Log.e("error", throwable.getMessage())));
     }
 }

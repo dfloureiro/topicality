@@ -103,6 +103,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             @SuppressWarnings("ConstantConditions")
             @Override
             public void onCardClicked(int index) {
+                presenter.upsertFavoriteSourceClicks(articleCardsAdapter.getItem(index).getSourceName().toLowerCase());
                 ChromePagesHelper.openChromePageHelper(getActivity(), articleCardsAdapter.getItem(index).getUrl());
             }
 

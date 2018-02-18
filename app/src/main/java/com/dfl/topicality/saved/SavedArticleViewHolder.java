@@ -30,11 +30,14 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
 
     private String url;
 
-    SavedArticleViewHolder(View itemView) {
+    SavedArticleViewHolder(View itemView, SavedArticlesContract.Presenter presenter) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
-        itemView.setOnClickListener(v -> ChromePagesHelper.openChromePageHelper(itemView.getContext(), getUrl()));
+        itemView.setOnClickListener(v -> {
+            presenter.upsertFavoriteSourceClicks(sourceName.getText().toString().toLowerCase());
+            ChromePagesHelper.openChromePageHelper(itemView.getContext(), getUrl());
+        });
     }
 
     public void setImage(ImageLoader imageLoader, String urlToImage) {

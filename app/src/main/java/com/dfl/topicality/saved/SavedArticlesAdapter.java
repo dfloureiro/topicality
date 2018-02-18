@@ -18,16 +18,18 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
 
     private final List<DatabaseArticle> databaseArticleList;
     private ImageLoader imageLoader;
+    private SavedArticlesContract.Presenter presenter;
 
-    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, ImageLoader imageLoader) {
+    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, ImageLoader imageLoader, SavedArticlesContract.Presenter presenter) {
         this.databaseArticleList = databaseArticleList;
         this.imageLoader = imageLoader;
+        this.presenter = presenter;
     }
 
     @Override
     public SavedArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new SavedArticleViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.saved_list_item, parent, false));
+                .inflate(R.layout.saved_list_item, parent, false), presenter);
     }
 
     @Override

@@ -20,16 +20,25 @@ public class DatabaseInteractor {
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database").build();
     }
 
-    public Completable insertAll(DatabaseArticle... databaseArticles) {
+    public Completable insertAllDatabaseArticles(DatabaseArticle... databaseArticles) {
         return Completable.fromAction(() ->
-                appDatabase.databaseArticleDao().insertAll(databaseArticles));
+                appDatabase.getSavedArticleDao().insertAll(databaseArticles));
     }
 
-    public Flowable<List<DatabaseArticle>> getAll() {
-        return appDatabase.databaseArticleDao().getAll();
+    public Flowable<List<DatabaseArticle>> getAllDatabaseArticles() {
+        return appDatabase.getSavedArticleDao().getAll();
     }
 
-    public Completable deleteWhereUrl(String url) {
-        return Completable.fromAction(() -> appDatabase.databaseArticleDao().deleteWhereUrl(url));
+    public Completable deleteDatabaseArticleWhereUrl(String url) {
+        return Completable.fromAction(() -> appDatabase.getSavedArticleDao().deleteWhereUrl(url));
+    }
+
+    public Completable upsertFavoriteSources(String sourceDomain) {
+        return Completable.fromAction(() ->
+                appDatabase.updateFavoriteSource(sourceDomain));
+    }
+
+    public Flowable<List<FavoriteSource>> getAllFavoriteSourcesOrderByClicksDes() {
+        return appDatabase.getFavoriteSourceDao().getAllOrderByNumberClicksDesc();
     }
 }

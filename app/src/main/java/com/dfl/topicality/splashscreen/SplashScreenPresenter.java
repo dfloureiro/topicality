@@ -60,7 +60,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
     private void getTopSourcesByCountryAndLanguage() {
         compositeDisposable.add(
                 Flowable.zip(
-                        requestFactory.getTopHeadlines(Category.GENERAL, country, null, 20, 1)
+                        requestFactory.getTopHeadlines(null, country, null, 20, 1)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread()),
                         requestFactory.getSources(null, language, country)

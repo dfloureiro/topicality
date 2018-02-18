@@ -10,7 +10,6 @@ import java.util.List;
 
 import dfl.com.newsapikotin.Model;
 import dfl.com.newsapikotin.NewsApi;
-import dfl.com.newsapikotin.enums.Category;
 import dfl.com.newsapikotin.enums.Country;
 import dfl.com.newsapikotin.enums.Language;
 import io.reactivex.Flowable;

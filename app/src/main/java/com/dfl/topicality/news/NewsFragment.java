@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dfl.topicality.R;
+import com.dfl.topicality.TopicalityApplication;
 import com.dfl.topicality.UnscrollableViewPager;
 import com.dfl.topicality.news.article.ArticleCardsFragment;
 
@@ -32,7 +33,6 @@ public class NewsFragment extends Fragment {
     UnscrollableViewPager viewPager;
 
     private Unbinder unbinder;
-
     private Country country;
 
     public NewsFragment() {
@@ -55,7 +55,7 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        country = Country.PT;
+        country = ((TopicalityApplication) getActivity().getApplication()).getUserSettingsPersistence().getCountry();
         viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
     }

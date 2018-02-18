@@ -71,5 +71,5 @@ dependencies {
     }
 
     //API
-    implementation 'com.github.dfloureiro:news-api-kotlin:v1.0'
+    implementation 'com.github.dfloureiro:news-api-kotlin:v1.1'
 }

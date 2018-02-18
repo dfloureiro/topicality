@@ -38,6 +38,10 @@ public class DatabaseInteractor {
                 appDatabase.updateFavoriteSource(sourceDomain));
     }
 
+    public Completable insertAllFavoriteSources(FavoriteSource... favoriteSources) {
+        return Completable.fromAction(() -> appDatabase.getFavoriteSourceDao().insertAll(favoriteSources));
+    }
+
     public Flowable<List<FavoriteSource>> getAllFavoriteSourcesOrderByClicksDes() {
         return appDatabase.getFavoriteSourceDao().getAllOrderByNumberClicksDesc();
     }

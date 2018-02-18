@@ -16,10 +16,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
 
-    private SavedArticlesContract.View view;
-    private DatabaseInteractor databaseInteractor;
+    private final SavedArticlesContract.View view;
+    private final DatabaseInteractor databaseInteractor;
 
-    private ArrayList<String> databaseArticleIdsList;
+    private final ArrayList<String> databaseArticleIdsList;
     private final CompositeDisposable compositeDisposable;
 
     SavedArticlesPresenter(SavedArticlesContract.View view, DatabaseInteractor databaseInteractor) {

@@ -24,11 +24,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SplashScreenPresenter implements SplashScreenContract.Presenter {
 
-    private SplashScreenContract.View view;
-    private DatabaseInteractor databaseInteractor;
-    private NewsApi requestFactory;
-    private Country country;
-    private Language language;
+    private final SplashScreenContract.View view;
+    private final DatabaseInteractor databaseInteractor;
+    private final NewsApi requestFactory;
+    private final Country country;
+    private final Language language;
 
     private final CompositeDisposable compositeDisposable;
 

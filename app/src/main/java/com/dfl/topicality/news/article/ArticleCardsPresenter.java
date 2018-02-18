@@ -22,7 +22,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
 
     private final ArticleCardsContract.View view;
     private final NewsApi requestFactory;
-    private DatabaseInteractor databaseInteractor;
+    private final DatabaseInteractor databaseInteractor;
     private final Category category;
     private final Country country;
     private final String q;

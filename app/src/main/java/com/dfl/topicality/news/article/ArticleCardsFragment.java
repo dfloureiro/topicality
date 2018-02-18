@@ -32,7 +32,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     private final static String CATEGORY_KEY = "CATEGORY_KEY";
     private final static String COUNTRY_KEY = "COUNTRY_KEY";
-    private final static String SOURCES_KEY = "SOURCES_KEY";
+    private final static String DOMAINS_KEY = "DOMAINS_KEY";
     private final static String Q_KEY = "Q_KEY";
 
     @BindView(R.id.main_fragment_card_stack_view)
@@ -42,7 +42,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     private Category category;
     private Country country;
-    private String sources;
+    private String domains;
     private String q;
 
     private ArticleCardsAdapter articleCardsAdapter;
@@ -54,11 +54,11 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     }
 
-    public static ArticleCardsFragment newInstance(Category category, Country country, String sources, String q) {
+    public static ArticleCardsFragment newInstance(Category category, Country country, String domains, String q) {
         Bundle bundle = new Bundle();
         bundle.putString(CATEGORY_KEY, category.name());
         bundle.putString(COUNTRY_KEY, country.name());
-        bundle.putString(SOURCES_KEY, sources);
+        bundle.putString(DOMAINS_KEY, domains);
         bundle.putString(Q_KEY, q);
         ArticleCardsFragment articleCardsFragment = new ArticleCardsFragment();
         articleCardsFragment.setArguments(bundle);
@@ -80,7 +80,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         if (getArguments() != null) {
             category = Category.valueOf(getArguments().getString(CATEGORY_KEY, null));
             country = Country.valueOf(getArguments().getString(COUNTRY_KEY, null));
-            sources = getArguments().getString(SOURCES_KEY, null);
+            domains = getArguments().getString(DOMAINS_KEY, null);
             q = getArguments().getString(Q_KEY, null);
         }
 

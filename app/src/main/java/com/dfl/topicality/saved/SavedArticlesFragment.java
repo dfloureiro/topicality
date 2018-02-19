@@ -3,13 +3,16 @@ package com.dfl.topicality.saved;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
@@ -30,6 +33,8 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
 
     @BindView(R.id.recycler_view_layout)
     RecyclerView recyclerView;
+    @BindView(R.id.fragment_saved_layout)
+    LinearLayout container;
 
     private SavedArticlesAdapter savedArticlesAdapter;
     private SavedArticlesContract.Presenter presenter;
@@ -92,6 +97,11 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
     public void removeArticle(int viewHolderPosition) {
         savedArticlesAdapter.deleteDatabaseArticle(viewHolderPosition);
 
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        Snackbar.make(container, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

@@ -46,6 +46,6 @@ public class UserSettingsPersistence {
     }
 
     public Language getLanguage() {
-        return Language.valueOf(sharedPreferences.getString(COUNTRY_CODE_KEY, localRepository.getLanguage()));
+        return Language.valueOf(sharedPreferences.getString(LANGUAGE_CODE_KEY, localRepository.getLanguage()));
     }
 }

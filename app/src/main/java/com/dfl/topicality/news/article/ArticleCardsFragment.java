@@ -3,6 +3,8 @@ package com.dfl.topicality.news.article;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,8 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     CardStackView cardStackView;
     @BindView(R.id.main_fragment_progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.fragment_news_cards_layout)
+    ConstraintLayout container;
 
     private Category category;
     private Country country;
@@ -152,6 +156,16 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             }
         }
         return articles;
+    }
+
+    @Override
+    public void showLoadingError() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        Snackbar.make(container, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

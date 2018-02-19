@@ -1,7 +1,5 @@
 package com.dfl.topicality.news.article;
 
-import android.util.Log;
-
 import com.dfl.topicality.database.DatabaseArticle;
 import com.dfl.topicality.database.DatabaseInteractor;
 
@@ -70,8 +68,9 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(databaseInteractor.insertAllDatabaseArticles(article)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Log.d("done", "article inserted"),
-                        throwable -> Log.e("error", throwable.getMessage())));
+                .subscribe(() -> {
+                        },
+                        throwable -> view.showSnackBar(throwable.getMessage())));
     }
 
     @Override
@@ -84,7 +83,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                             view.addArticles(articles);
                             page++;
                         },
-                        error -> Log.e("ERROR", "my error: " + error.getMessage())));
+                        error -> view.showLoadingError()));
     }
 
     @Override
@@ -92,8 +91,9 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesClicks(sourceDomain)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Log.d("done", "favorite source updated"),
-                        throwable -> Log.e("error", throwable.getMessage())));
+                .subscribe(() -> {
+                        },
+                        throwable -> view.showSnackBar(throwable.getMessage())));
     }
 
     @Override
@@ -101,7 +101,8 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesSaved(sourceDomain)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Log.d("done", "favorite source updated"),
-                        throwable -> Log.e("error", throwable.getMessage())));
+                .subscribe(() -> {
+                        },
+                        throwable -> view.showSnackBar(throwable.getMessage())));
     }
 }

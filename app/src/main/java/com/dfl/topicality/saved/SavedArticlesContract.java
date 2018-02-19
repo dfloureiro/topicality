@@ -17,6 +17,7 @@ public interface SavedArticlesContract {
 
         void removeArticle(int viewHolderPosition);
 
+        void showSnackBar(String message);
     }
 
     interface Presenter extends BasePresenter<SavedArticlesContract.State> {

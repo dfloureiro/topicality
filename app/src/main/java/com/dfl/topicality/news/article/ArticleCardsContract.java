@@ -24,6 +24,10 @@ public interface ArticleCardsContract {
         void addArticles(List<DatabaseArticle> articles);
 
         List<DatabaseArticle> extractRemainingArticles();
+
+        void showLoadingError();
+
+        void showSnackBar(String message);
     }
 
     interface Presenter extends BasePresenter<State> {

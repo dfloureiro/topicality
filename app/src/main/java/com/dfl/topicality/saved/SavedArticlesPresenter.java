@@ -57,7 +57,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
                             view.addArticle(databaseArticle);
                             databaseArticleIdsList.add(databaseArticle.getUrl());
                         },
-                        throwable -> Log.e("error", throwable.getMessage())));
+                        throwable -> view.showSnackBar(throwable.getMessage())));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
                             view.removeArticle(viewHolderPosition);
                             databaseArticleIdsList.remove(viewHolderPosition);
                         },
-                        throwable -> Log.e("error", throwable.getMessage())));
+                        throwable -> view.showSnackBar(throwable.getMessage())));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
         compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesClicks(sourceDomain)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Log.d("done", "article inserted"),
-                        throwable -> Log.e("error", throwable.getMessage())));
+                .subscribe(() -> {},
+                        throwable -> view.showSnackBar(throwable.getMessage())));
     }
 }

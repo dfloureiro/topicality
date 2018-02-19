@@ -74,7 +74,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
 
     @Override
     public void upsertFavoriteSourceClicks(String sourceDomain) {
-        compositeDisposable.add(databaseInteractor.upsertFavoriteSources(sourceDomain)
+        compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesClicks(sourceDomain)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> Log.d("done", "article inserted"),

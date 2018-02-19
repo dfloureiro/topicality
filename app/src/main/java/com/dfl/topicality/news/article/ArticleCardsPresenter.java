@@ -89,7 +89,16 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
 
     @Override
     public void upsertFavoriteSourceClicks(String sourceDomain) {
-        compositeDisposable.add(databaseInteractor.upsertFavoriteSources(sourceDomain)
+        compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesClicks(sourceDomain)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d("done", "favorite source updated"),
+                        throwable -> Log.e("error", throwable.getMessage())));
+    }
+
+    @Override
+    public void upsertFavoriteSourceSaved(String sourceDomain) {
+        compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesSaved(sourceDomain)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> Log.d("done", "favorite source updated"),

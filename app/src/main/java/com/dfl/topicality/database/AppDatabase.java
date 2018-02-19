@@ -15,8 +15,14 @@ abstract class AppDatabase extends RoomDatabase {
     abstract FavoriteSourceDao getFavoriteSourceDao();
 
     @Transaction
-    void updateFavoriteSource(String sourceDomain) {
-        getFavoriteSourceDao().insertAll(new FavoriteSource(sourceDomain, 0));
+    void updateFavoriteSourceClicks(String sourceDomain) {
+        getFavoriteSourceDao().insertAll(new FavoriteSource(sourceDomain, 0, 0));
         getFavoriteSourceDao().incrementNumberOfClicksOnFavoriteSource(sourceDomain);
+    }
+
+    @Transaction
+    void updateFavoriteSourceSaved(String sourceDomain) {
+        getFavoriteSourceDao().insertAll(new FavoriteSource(sourceDomain, 0, 0));
+        getFavoriteSourceDao().incrementNumberOfSavesOnFavoriteSource(sourceDomain);
     }
 }

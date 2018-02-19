@@ -68,10 +68,10 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
                         (articles, sources) -> {
                             List<FavoriteSource> favoriteSources = new ArrayList<>();
                             for (Model.Article article : articles.getArticles()) {
-                                favoriteSources.add(new FavoriteSource(article.getSource().getName(), 0));
+                                favoriteSources.add(new FavoriteSource(article.getSource().getName(), 0, 0));
                             }
                             for (Model.Source source : sources.getSources()) {
-                                favoriteSources.add(new FavoriteSource(source.getName(), 0));
+                                favoriteSources.add(new FavoriteSource(source.getName(), 0, 0));
                             }
 
                             return favoriteSources;

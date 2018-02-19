@@ -40,6 +40,8 @@ public interface ArticleCardsContract {
         void saveArticle(DatabaseArticle article);
 
         void upsertFavoriteSourceClicks(String sourceDomain);
+
+        void upsertFavoriteSourceSaved(String sourceDomain);
     }
 
     interface State extends BaseState {

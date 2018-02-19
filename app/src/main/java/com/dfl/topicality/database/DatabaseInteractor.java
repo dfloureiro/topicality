@@ -33,16 +33,21 @@ public class DatabaseInteractor {
         return Completable.fromAction(() -> appDatabase.getSavedArticleDao().deleteWhereUrl(url));
     }
 
-    public Completable upsertFavoriteSources(String sourceDomain) {
+    public Completable upsertFavoriteSourcesClicks(String sourceDomain) {
         return Completable.fromAction(() ->
-                appDatabase.updateFavoriteSource(sourceDomain));
+                appDatabase.updateFavoriteSourceClicks(sourceDomain));
+    }
+
+    public Completable upsertFavoriteSourcesSaved(String sourceDomain) {
+        return Completable.fromAction(() ->
+                appDatabase.updateFavoriteSourceSaved(sourceDomain));
     }
 
     public Completable insertAllFavoriteSources(FavoriteSource... favoriteSources) {
         return Completable.fromAction(() -> appDatabase.getFavoriteSourceDao().insertAll(favoriteSources));
     }
 
-    public Flowable<List<FavoriteSource>> getAllFavoriteSourcesOrderByClicksDes() {
-        return appDatabase.getFavoriteSourceDao().getAllOrderByNumberClicksDesc();
+    public Flowable<List<FavoriteSource>> getAllFavoriteSourcesOrderByInteractionsDes() {
+        return appDatabase.getFavoriteSourceDao().getAllOrderByNumberInteractionsDesc();
     }
 }

@@ -15,12 +15,15 @@ import io.reactivex.Flowable;
 @Dao
 interface FavoriteSourceDao {
 
-    @Query("SELECT * FROM favoritesource ORDER BY number_clicks DESC")
-    Flowable<List<FavoriteSource>> getAllOrderByNumberClicksDesc();
+    @Query("SELECT * FROM favoritesource ORDER BY number_clicks + number_saves DESC")
+    Flowable<List<FavoriteSource>> getAllOrderByNumberInteractionsDesc();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(FavoriteSource... favoriteSources);
 
     @Query("UPDATE favoritesource SET number_clicks = number_clicks + 1 WHERE sourcedomain = :sourceDomain")
     void incrementNumberOfClicksOnFavoriteSource(String sourceDomain);
+
+    @Query("UPDATE favoritesource SET number_saves = number_saves + 1 WHERE sourcedomain = :sourceDomain")
+    void incrementNumberOfSavesOnFavoriteSource(String sourceDomain);
 }

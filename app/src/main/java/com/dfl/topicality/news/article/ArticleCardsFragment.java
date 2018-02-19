@@ -94,6 +94,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
                 int index = cardStackView.getTopIndex() - 1;
                 if (direction.equals(SwipeDirection.Bottom) && articleCardsAdapter.getCount() > index) {
                     presenter.saveArticle(articleCardsAdapter.getItem(index));
+                    presenter.upsertFavoriteSourceSaved(articleCardsAdapter.getItem(index).getSourceName());
                 }
                 if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {
                     presenter.getTopHeadlineArticles();

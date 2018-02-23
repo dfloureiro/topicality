@@ -187,18 +187,23 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         if (presenter != null) {
             presenter.unsubscribe();
         }
-        articleCardsAdapter = null;
-        presenter = null;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        articleCardsAdapter = null;
+        presenter = null;
     }
 }

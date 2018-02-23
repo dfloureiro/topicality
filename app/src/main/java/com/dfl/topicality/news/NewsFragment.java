@@ -108,23 +108,23 @@ public class NewsFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "For you";
+                    return getString(R.string.for_you_category);
                 case 1:
-                    return "General";
+                    return getString(R.string.general_category);
                 case 2:
-                    return "Sports";
+                    return getString(R.string.sports_category);
                 case 3:
-                    return "Technology";
+                    return getString(R.string.technology_category);
                 case 4:
-                    return "Business";
+                    return getString(R.string.business_category);
                 case 5:
-                    return "Entertainment";
+                    return getString(R.string.entertainment_category);
                 case 6:
-                    return "Science";
+                    return getString(R.string.science_category);
                 case 7:
-                    return "Health";
+                    return getString(R.string.health_category);
                 default:
-                    return "General";
+                    return getString(R.string.for_you_category);
             }
         }
 

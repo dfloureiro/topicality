@@ -5,12 +5,12 @@
         android:id="@+id/action_news"
         android:enabled="true"
         android:icon="@drawable/ic_newspaper_black_24dp"
-        android:title="news"
+        android:title="@string/news_item_bottom_navigation"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_saved"
         android:enabled="true"
         android:icon="@drawable/ic_bookmark_black_24dp"
-        android:title="saved"
+        android:title="@string/saved_item_bottom_navigation"
         app:showAsAction="ifRoom" />
 </menu>

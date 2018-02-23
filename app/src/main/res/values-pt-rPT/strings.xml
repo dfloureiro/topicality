@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--categories-->
+    <string name="for_you_category">Para ti</string>
+    <string name="general_category">Geral</string>
+    <string name="sports_category">Desporto</string>
+    <string name="technology_category">Tecnologia</string>
+    <string name="business_category">Negócios</string>
+    <string name="entertainment_category">Entertenimento</string>
+    <string name="science_category">Ciência</string>
+    <string name="health_category">Saúde</string>
+
+    <!--bottom navigation-->
+    <string name="saved_item_bottom_navigation">Ler mais tarde</string>
+    <string name="news_item_bottom_navigation">Notícias</string>
+</resources>

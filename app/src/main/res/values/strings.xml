@@ -1,4 +1,17 @@
 <resources>
-    <string name="app_name">Topicality</string>
-    <string name="title_activity_wizard">WizardActivity</string>
+    <string name="app_name" translatable="false">Topicality</string>
+
+    <!--categories-->
+    <string name="for_you_category">For you</string>
+    <string name="general_category">General</string>
+    <string name="sports_category">Sports</string>
+    <string name="technology_category">Technology</string>
+    <string name="business_category">Business</string>
+    <string name="entertainment_category">Entertainment</string>
+    <string name="science_category">Science</string>
+    <string name="health_category">Health</string>
+
+    <!--bottom navigation-->
+    <string name="saved_item_bottom_navigation">For Later</string>
+    <string name="news_item_bottom_navigation">News</string>
 </resources>

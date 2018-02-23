@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dfl.topicality.ChromePagesHelper;
+import com.dfl.topicality.DomainUtils;
 import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
 
@@ -35,7 +36,7 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
 
         itemView.setOnClickListener(v -> {
-            presenter.upsertFavoriteSourceClicks(url);
+            presenter.upsertFavoriteSourceClicks(DomainUtils.getDomainName(url));
             ChromePagesHelper.openChromePageHelper(itemView.getContext(), getUrl());
         });
     }

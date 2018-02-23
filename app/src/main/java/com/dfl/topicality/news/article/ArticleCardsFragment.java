@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.dfl.topicality.ChromePagesHelper;
+import com.dfl.topicality.DomainUtils;
 import com.dfl.topicality.R;
 import com.dfl.topicality.TopicalityApplication;
 import com.dfl.topicality.database.DatabaseArticle;
@@ -110,7 +111,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
                 int index = cardStackView.getTopIndex() - 1;
                 if (direction.equals(SwipeDirection.Bottom) && articleCardsAdapter.getCount() > index) {
                     presenter.saveArticle(articleCardsAdapter.getItem(index));
-                    presenter.upsertFavoriteSourceSaved(articleCardsAdapter.getItem(index).getUrl());
+                    presenter.upsertFavoriteSourceSaved(DomainUtils.getDomainName(articleCardsAdapter.getItem(index).getUrl()));
                 }
                 if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {
                     presenter.getArticles();
@@ -120,7 +121,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             @SuppressWarnings("ConstantConditions")
             @Override
             public void onCardClicked(int index) {
-                presenter.upsertFavoriteSourceClicks(articleCardsAdapter.getItem(index).getUrl());
+                presenter.upsertFavoriteSourceClicks(DomainUtils.getDomainName(articleCardsAdapter.getItem(index).getUrl()));
                 ChromePagesHelper.openChromePageHelper(getActivity(), articleCardsAdapter.getItem(index).getUrl());
             }
 

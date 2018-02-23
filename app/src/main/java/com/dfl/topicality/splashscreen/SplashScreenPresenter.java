@@ -2,6 +2,7 @@ package com.dfl.topicality.splashscreen;
 
 import android.util.Log;
 
+import com.dfl.topicality.DomainUtils;
 import com.dfl.topicality.database.DatabaseInteractor;
 import com.dfl.topicality.database.FavoriteSource;
 
@@ -68,10 +69,10 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
                         (articles, sources) -> {
                             List<FavoriteSource> favoriteSources = new ArrayList<>();
                             for (Model.Article article : articles.getArticles()) {
-                                favoriteSources.add(new FavoriteSource(article.getSource().getName(), 0, 0));
+                                favoriteSources.add(new FavoriteSource(DomainUtils.getDomainName(article.getUrl()), 0, 0));
                             }
                             for (Model.Source source : sources.getSources()) {
-                                favoriteSources.add(new FavoriteSource(source.getName(), 0, 0));
+                                favoriteSources.add(new FavoriteSource(DomainUtils.getDomainName(source.getUrl()), 0, 0));
                             }
 
                             return favoriteSources;

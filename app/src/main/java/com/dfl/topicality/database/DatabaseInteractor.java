@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 /**
  * Created by loureiro on 17-02-2018.
@@ -47,7 +48,7 @@ public class DatabaseInteractor {
         return Completable.fromAction(() -> appDatabase.getFavoriteSourceDao().insertAll(favoriteSources));
     }
 
-    public Flowable<List<FavoriteSource>> getAllFavoriteSourcesOrderByInteractionsDes() {
+    public Single<List<FavoriteSource>> getAllFavoriteSourcesOrderByInteractionsDes() {
         return appDatabase.getFavoriteSourceDao().getAllOrderByNumberInteractionsDesc();
     }
 }

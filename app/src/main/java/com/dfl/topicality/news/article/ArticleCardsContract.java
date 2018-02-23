@@ -28,6 +28,8 @@ public interface ArticleCardsContract {
         void showLoadingError();
 
         void showSnackBar(String message);
+
+        NewsType getTypeOfNews();
     }
 
     interface Presenter extends BasePresenter<State> {
@@ -39,7 +41,7 @@ public interface ArticleCardsContract {
          */
         State getState();
 
-        void getTopHeadlineArticles();
+        void getArticles();
 
         void saveArticle(DatabaseArticle article);
 
@@ -51,6 +53,8 @@ public interface ArticleCardsContract {
     interface State extends BaseState {
 
         int getPage();
+
+        String getDomains();
 
         List<DatabaseArticle> getRemainingArticles();
     }

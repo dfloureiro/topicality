@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dfl.com.newsapikotin.enums.Category;
 import dfl.com.newsapikotin.enums.Country;
+import dfl.com.newsapikotin.enums.Language;
 
 /**
  * Created by loureiro on 29-01-2018.
@@ -33,8 +34,8 @@ import dfl.com.newsapikotin.enums.Country;
 public class ArticleCardsFragment extends Fragment implements ArticleCardsContract.View {
 
     private final static String CATEGORY_KEY = "CATEGORY_KEY";
+    private final static String LANGUAGE_KEY = "LANGUAGE_KEY";
     private final static String COUNTRY_KEY = "COUNTRY_KEY";
-    private final static String DOMAINS_KEY = "DOMAINS_KEY";
     private final static String Q_KEY = "Q_KEY";
 
     @BindView(R.id.main_fragment_card_stack_view)
@@ -46,7 +47,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     private Category category;
     private Country country;
-    private String domains;
+    private Language language;
     private String q;
 
     private ArticleCardsAdapter articleCardsAdapter;
@@ -58,12 +59,19 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     }
 
-    public static ArticleCardsFragment newInstance(Category category, Country country, String domains, String q) {
+    public static ArticleCardsFragment newInstance(Category category, Country country) {
         Bundle bundle = new Bundle();
         bundle.putString(CATEGORY_KEY, category.name());
         bundle.putString(COUNTRY_KEY, country.name());
-        bundle.putString(DOMAINS_KEY, domains);
-        bundle.putString(Q_KEY, q);
+        ArticleCardsFragment articleCardsFragment = new ArticleCardsFragment();
+        articleCardsFragment.setArguments(bundle);
+        return articleCardsFragment;
+    }
+
+    public static ArticleCardsFragment newInstance(Language language, Country country) {
+        Bundle bundle = new Bundle();
+        bundle.putString(LANGUAGE_KEY, language.name());
+        bundle.putString(COUNTRY_KEY, country.name());
         ArticleCardsFragment articleCardsFragment = new ArticleCardsFragment();
         articleCardsFragment.setArguments(bundle);
         return articleCardsFragment;
@@ -82,9 +90,13 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
-            category = Category.valueOf(getArguments().getString(CATEGORY_KEY, null));
+            if (getArguments().containsKey(CATEGORY_KEY)) {
+                category = Category.valueOf(getArguments().getString(CATEGORY_KEY, null));
+            }
+            if (getArguments().containsKey(LANGUAGE_KEY)) {
+                language = Language.valueOf(getArguments().getString(LANGUAGE_KEY, null));
+            }
             country = Country.valueOf(getArguments().getString(COUNTRY_KEY, null));
-            domains = getArguments().getString(DOMAINS_KEY, null);
             q = getArguments().getString(Q_KEY, null);
         }
 
@@ -98,17 +110,17 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
                 int index = cardStackView.getTopIndex() - 1;
                 if (direction.equals(SwipeDirection.Bottom) && articleCardsAdapter.getCount() > index) {
                     presenter.saveArticle(articleCardsAdapter.getItem(index));
-                    presenter.upsertFavoriteSourceSaved(articleCardsAdapter.getItem(index).getSourceName());
+                    presenter.upsertFavoriteSourceSaved(articleCardsAdapter.getItem(index).getUrl());
                 }
                 if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {
-                    presenter.getTopHeadlineArticles();
+                    presenter.getArticles();
                 }
             }
 
             @SuppressWarnings("ConstantConditions")
             @Override
             public void onCardClicked(int index) {
-                presenter.upsertFavoriteSourceClicks(articleCardsAdapter.getItem(index).getSourceName().toLowerCase());
+                presenter.upsertFavoriteSourceClicks(articleCardsAdapter.getItem(index).getUrl());
                 ChromePagesHelper.openChromePageHelper(getActivity(), articleCardsAdapter.getItem(index).getUrl());
             }
 
@@ -126,7 +138,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         });
 
         presenter = new ArticleCardsPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getRequestFactory(),
-                ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, q);
+                ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, language, q);
         presenter.subscribe(savedInstanceState != null ? savedInstanceState.getParcelable(ArticleCardsState.ARTICLE_CARDS_STATE) : null);
     }
 
@@ -166,6 +178,11 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     @Override
     public void showSnackBar(String message) {
         Snackbar.make(container, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public NewsType getTypeOfNews() {
+        return language == null ? NewsType.TOP : NewsType.EVERYTING;
     }
 
     @Override

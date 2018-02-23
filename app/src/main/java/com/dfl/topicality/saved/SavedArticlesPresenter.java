@@ -1,7 +1,5 @@
 package com.dfl.topicality.saved;
 
-import android.util.Log;
-
 import com.dfl.topicality.database.DatabaseInteractor;
 
 import java.util.ArrayList;
@@ -77,7 +75,8 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
         compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesClicks(sourceDomain)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {},
+                .subscribe(() -> {
+                        },
                         throwable -> view.showSnackBar(throwable.getMessage())));
     }
 }

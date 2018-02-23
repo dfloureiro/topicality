@@ -7,7 +7,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 /**
  * Created by loureiro on 18-02-2018.
@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
 interface FavoriteSourceDao {
 
     @Query("SELECT * FROM favoritesource ORDER BY number_clicks + number_saves DESC")
-    Flowable<List<FavoriteSource>> getAllOrderByNumberInteractionsDesc();
+    Single<List<FavoriteSource>> getAllOrderByNumberInteractionsDesc();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(FavoriteSource... favoriteSources);

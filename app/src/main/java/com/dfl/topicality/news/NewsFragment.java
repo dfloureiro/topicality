@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dfl.com.newsapikotin.enums.Category;
 import dfl.com.newsapikotin.enums.Country;
+import dfl.com.newsapikotin.enums.Language;
 
 /**
  * Created by loureiro on 30-01-2018.
@@ -34,6 +35,7 @@ public class NewsFragment extends Fragment {
 
     private Unbinder unbinder;
     private Country country;
+    private Language language;
 
     public NewsFragment() {
 
@@ -56,6 +58,7 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         country = ((TopicalityApplication) getActivity().getApplication()).getUserSettingsPersistence().getCountry();
+        language = ((TopicalityApplication) getActivity().getApplication()).getUserSettingsPersistence().getLanguage();
         viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -76,45 +79,49 @@ public class NewsFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ArticleCardsFragment.newInstance(Category.GENERAL, country, null, null);
+                    return ArticleCardsFragment.newInstance(language, country);
                 case 1:
-                    return ArticleCardsFragment.newInstance(Category.SPORTS, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.GENERAL, country);
                 case 2:
-                    return ArticleCardsFragment.newInstance(Category.TECHNOLOGY, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.SPORTS, country);
                 case 3:
-                    return ArticleCardsFragment.newInstance(Category.BUSINESS, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.TECHNOLOGY, country);
                 case 4:
-                    return ArticleCardsFragment.newInstance(Category.ENTERTAINMENT, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.BUSINESS, country);
                 case 5:
-                    return ArticleCardsFragment.newInstance(Category.SCIENCE, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.ENTERTAINMENT, country);
                 case 6:
-                    return ArticleCardsFragment.newInstance(Category.HEALTH, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.SCIENCE, country);
+                case 7:
+                    return ArticleCardsFragment.newInstance(Category.HEALTH, country);
                 default:
-                    return ArticleCardsFragment.newInstance(Category.GENERAL, country, null, null);
+                    return ArticleCardsFragment.newInstance(Category.GENERAL, country);
             }
         }
 
         @Override
         public int getCount() {
-            return 7;
+            return 8;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "General";
+                    return "For you";
                 case 1:
-                    return "Sports";
+                    return "General";
                 case 2:
-                    return "Technology";
+                    return "Sports";
                 case 3:
-                    return "Business";
+                    return "Technology";
                 case 4:
-                    return "Entertainment";
+                    return "Business";
                 case 5:
-                    return "Science";
+                    return "Entertainment";
                 case 6:
+                    return "Science";
+                case 7:
                     return "Health";
                 default:
                     return "General";

@@ -35,7 +35,7 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
 
         itemView.setOnClickListener(v -> {
-            presenter.upsertFavoriteSourceClicks(sourceName.getText().toString().toLowerCase());
+            presenter.upsertFavoriteSourceClicks(url);
             ChromePagesHelper.openChromePageHelper(itemView.getContext(), getUrl());
         });
     }

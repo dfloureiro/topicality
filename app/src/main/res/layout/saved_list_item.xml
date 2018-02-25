@@ -23,14 +23,14 @@
         android:id="@+id/saved_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/saved_item_image_view"
-        android:layout_toEndOf="@id/saved_item_image_view" />
+        android:layout_toEndOf="@id/saved_item_image_view"
+        android:layout_toRightOf="@id/saved_item_image_view" />
 
     <TextView
         android:id="@+id/saved_item_source_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/saved_item_image_view"
+        android:layout_below="@id/saved_item_title"
         android:layout_toEndOf="@id/saved_item_image_view"
-        android:layout_below="@id/saved_item_title" />
+        android:layout_toRightOf="@id/saved_item_image_view" />
 </RelativeLayout>

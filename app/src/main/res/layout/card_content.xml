@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardBackgroundColor="@android:color/darker_gray">
+    card_view:cardBackgroundColor="@android:color/darker_gray"
+    card_view:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,12 +22,12 @@
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="match_parent"
-            android:textColor="@android:color/white"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#6e000000"
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_height="wrap_content" />
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <ProgressBar
             android:id="@+id/card_progress_bar"

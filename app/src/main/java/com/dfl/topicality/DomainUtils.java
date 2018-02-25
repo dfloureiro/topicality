@@ -11,12 +11,11 @@ public class DomainUtils {
 
     public static String getDomainName(String url) {
         try {
-            URI uri = new URI(url);
-            String domain = uri.getHost();
+            String domain = new URI(url.replaceAll(" ","")).getHost();
             return domain.startsWith("www.") ? domain.substring(4) : domain;
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException(url);
+        return null;
     }
 }

@@ -11,7 +11,7 @@ public class DomainUtils {
 
     public static String getDomainName(String url) {
         try {
-            String domain = new URI(url.replaceAll(" ","")).getHost();
+            String domain = new URI(url.replaceAll(" ", "")).getHost();
             return domain.startsWith("www.") ? domain.substring(4) : domain;
         } catch (URISyntaxException e) {
             e.printStackTrace();

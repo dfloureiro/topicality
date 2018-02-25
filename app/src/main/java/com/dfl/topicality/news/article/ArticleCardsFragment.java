@@ -69,10 +69,9 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         return articleCardsFragment;
     }
 
-    public static ArticleCardsFragment newInstance(Language language, Country country) {
+    public static ArticleCardsFragment newInstance(Language language) {
         Bundle bundle = new Bundle();
         bundle.putString(LANGUAGE_KEY, language.name());
-        bundle.putString(COUNTRY_KEY, country.name());
         ArticleCardsFragment articleCardsFragment = new ArticleCardsFragment();
         articleCardsFragment.setArguments(bundle);
         return articleCardsFragment;
@@ -97,7 +96,9 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             if (getArguments().containsKey(LANGUAGE_KEY)) {
                 language = Language.valueOf(getArguments().getString(LANGUAGE_KEY, null));
             }
-            country = Country.valueOf(getArguments().getString(COUNTRY_KEY, null));
+            if (getArguments().containsKey(COUNTRY_KEY)) {
+                country = Country.valueOf(getArguments().getString(COUNTRY_KEY, null));
+            }
             q = getArguments().getString(Q_KEY, null);
         }
 

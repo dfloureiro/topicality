@@ -9,10 +9,12 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dfl.topicality.news.NewsFragment;
+import com.dfl.topicality.news.article.ArticleCardsFragment;
 import com.dfl.topicality.saved.SavedArticlesFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dfl.com.newsapikotin.enums.Language;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,22 +23,30 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.activity_main_container)
     UnscrollableViewPager viewPager;
 
+    private Language language;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        language = ((TopicalityApplication) getApplication()).getUserSettingsPersistence().getLanguage();
+
         viewPager.setAdapter(new ViewPagerAdapter(getFragmentManager()));
+        viewPager.setOffscreenPageLimit(3);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
-                        case R.id.action_news:
+                        case R.id.action_top:
                             viewPager.setCurrentItem(0);
                             break;
-                        case R.id.action_saved:
+                        case R.id.action_news:
                             viewPager.setCurrentItem(1);
+                            break;
+                        case R.id.action_saved:
+                            viewPager.setCurrentItem(2);
                             break;
                     }
                     return true;
@@ -55,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return NewsFragment.newInstance();
                 case 1:
+                    return ArticleCardsFragment.newInstance(language);
+                case 2:
                     return SavedArticlesFragment.newInstance();
                 default:
                     return NewsFragment.newInstance();
@@ -63,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

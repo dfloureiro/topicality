@@ -14,4 +14,5 @@
     <!--bottom navigation-->
     <string name="saved_item_bottom_navigation">Ler mais tarde</string>
     <string name="news_item_bottom_navigation">Notícias</string>
+    <string name="top_item_bottom_navigation">Top</string>
 </resources>

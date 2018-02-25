@@ -2,15 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_top"
+        android:enabled="true"
+        android:icon="@drawable/ic_fire"
+        android:title="@string/top_item_bottom_navigation"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_news"
         android:enabled="true"
-        android:icon="@drawable/ic_newspaper_black_24dp"
+        android:icon="@drawable/ic_newspaper"
         android:title="@string/news_item_bottom_navigation"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_saved"
         android:enabled="true"
-        android:icon="@drawable/ic_bookmark_black_24dp"
+        android:icon="@drawable/ic_bookmark"
         android:title="@string/saved_item_bottom_navigation"
         app:showAsAction="ifRoom" />
 </menu>

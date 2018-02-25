@@ -7,7 +7,7 @@
     tools:context="com.dfl.topicality.MainActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_top"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/toolbar_top" />
 
 </RelativeLayout>

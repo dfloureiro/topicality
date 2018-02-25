@@ -117,7 +117,7 @@ public class NewsFragment extends Fragment {
                 case 6:
                     return getString(R.string.health_category);
                 default:
-                    return getString(R.string.for_you_category);
+                    return getString(R.string.general_category);
             }
         }
 

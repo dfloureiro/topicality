@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_saved_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="Orientation">
 
+    <RelativeLayout
+        android:id="@+id/no_saved_bookmarks_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view_no_saved_bookmarks_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_bookmark"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_view_no_saved_bookmarks_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_no_saved_bookmarks_image"
+            android:layout_centerHorizontal="true"
+            android:text="@string/no_articles_saved_to_read_later" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_no_saved_bookmarks_description"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:text="@string/swipe_cards_down_to_save_them_for_later"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/saved_list_item" />
-
 </LinearLayout>

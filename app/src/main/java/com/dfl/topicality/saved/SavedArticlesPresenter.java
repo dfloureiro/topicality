@@ -52,6 +52,9 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
                 .flatMapIterable(databaseArticles -> databaseArticles)
                 .filter(databaseArticle -> !databaseArticleIdsList.contains(databaseArticle.getUrl()))
                 .subscribe(databaseArticle -> {
+                            if (databaseArticleIdsList.isEmpty()) {
+                                view.hideNoBookmarksLayout();
+                            }
                             view.addArticle(databaseArticle);
                             databaseArticleIdsList.add(databaseArticle.getUrl());
                         },
@@ -66,6 +69,9 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
                 .subscribe(() -> {
                             view.removeArticle(viewHolderPosition);
                             databaseArticleIdsList.remove(viewHolderPosition);
+                            if (databaseArticleIdsList.isEmpty()) {
+                                view.showNoBookmarksLayout();
+                            }
                         },
                         throwable -> view.showSnackBar(throwable.getMessage())));
     }

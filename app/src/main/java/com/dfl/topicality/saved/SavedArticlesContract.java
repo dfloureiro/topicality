@@ -18,6 +18,10 @@ public interface SavedArticlesContract {
         void removeArticle(int viewHolderPosition);
 
         void showSnackBar(String message);
+
+        void hideNoBookmarksLayout();
+
+        void showNoBookmarksLayout();
     }
 
     interface Presenter extends BasePresenter<SavedArticlesContract.State> {

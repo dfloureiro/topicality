@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
@@ -34,6 +35,8 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
     RecyclerView recyclerView;
     @BindView(R.id.fragment_saved_layout)
     LinearLayout container;
+    @BindView(R.id.no_saved_bookmarks_layout)
+    RelativeLayout noSavedBookmarksLayout;
 
     private SavedArticlesAdapter savedArticlesAdapter;
     private SavedArticlesContract.Presenter presenter;
@@ -95,12 +98,23 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
     @Override
     public void removeArticle(int viewHolderPosition) {
         savedArticlesAdapter.deleteDatabaseArticle(viewHolderPosition);
-
     }
 
     @Override
     public void showSnackBar(String message) {
         Snackbar.make(container, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hideNoBookmarksLayout() {
+        recyclerView.setVisibility(View.VISIBLE);
+        noSavedBookmarksLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoBookmarksLayout() {
+        recyclerView.setVisibility(View.GONE);
+        noSavedBookmarksLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

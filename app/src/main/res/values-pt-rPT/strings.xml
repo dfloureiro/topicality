@@ -15,4 +15,8 @@
     <string name="saved_item_bottom_navigation">Ler mais tarde</string>
     <string name="news_item_bottom_navigation">Notícias</string>
     <string name="top_item_bottom_navigation">Top</string>
+
+    <!--no saved articles layout-->
+    <string name="no_articles_saved_to_read_later">Nenhum artigo guardado para ler mais tarde</string>
+    <string name="swipe_cards_down_to_save_them_for_later">Deslizar o cartão para baixo para guardar o artigo</string>
 </resources>

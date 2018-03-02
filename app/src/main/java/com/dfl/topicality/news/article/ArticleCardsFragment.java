@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.dfl.topicality.ChromePagesHelper;
 import com.dfl.topicality.DomainUtils;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import dfl.com.newsapikotin.enums.Category;
 import dfl.com.newsapikotin.enums.Country;
@@ -38,6 +40,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     private final static String LANGUAGE_KEY = "LANGUAGE_KEY";
     private final static String COUNTRY_KEY = "COUNTRY_KEY";
     private final static String Q_KEY = "Q_KEY";
+    private final static String NO_MORE_ARTICLES_KEY = "NO_MORE_ARTICLES_KEY";
 
     @BindView(R.id.main_fragment_card_stack_view)
     CardStackView cardStackView;
@@ -45,11 +48,15 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     ProgressBar progressBar;
     @BindView(R.id.fragment_news_cards_layout)
     ConstraintLayout container;
+    @BindView(R.id.no_more_articles_layout)
+    RelativeLayout noMoreArticlesLayout;
 
     private Category category;
     private Country country;
     private Language language;
     private String q;
+    private boolean isArticlesStackEmpty;
+    private ArticleCardsContract.State state;
 
     private ArticleCardsAdapter articleCardsAdapter;
 
@@ -101,6 +108,10 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             }
             q = getArguments().getString(Q_KEY, null);
         }
+        if (savedInstanceState != null) {
+            isArticlesStackEmpty = savedInstanceState.getBoolean(NO_MORE_ARTICLES_KEY, false);
+            state = savedInstanceState.getParcelable(ArticleCardsState.ARTICLE_CARDS_STATE);
+        }
 
         articleCardsAdapter = new ArticleCardsAdapter(getActivity(), 0);
         cardStackView.setAdapter(articleCardsAdapter);
@@ -117,6 +128,11 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
                 if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {
                     presenter.getArticles();
                 }
+                if ((articleCardsAdapter.getCount() - cardStackView.getTopIndex()) == 0) {
+                    isArticlesStackEmpty = true;
+                    noMoreArticlesLayout.setVisibility(View.VISIBLE);
+                }
+                state = presenter.getState();
             }
 
             @SuppressWarnings("ConstantConditions")
@@ -141,15 +157,18 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
         presenter = new ArticleCardsPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getRequestFactory(),
                 ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, language, q);
-        presenter.subscribe(savedInstanceState != null ? savedInstanceState.getParcelable(ArticleCardsState.ARTICLE_CARDS_STATE) : null);
+        presenter.subscribe(state);
+        if (isArticlesStackEmpty) {
+            progressBar.setVisibility(View.GONE);
+        }
+        handleNoArticlesLayoutVisibility();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (presenter != null) {
-            outState.putParcelable(ArticleCardsState.ARTICLE_CARDS_STATE, presenter.getState());
-        }
+        outState.putBoolean(NO_MORE_ARTICLES_KEY, isArticlesStackEmpty);
+        outState.putParcelable(ArticleCardsState.ARTICLE_CARDS_STATE, state);
     }
 
     @Override
@@ -159,6 +178,8 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         articleCardsAdapter.notifyDataSetChanged();
         cardStackView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
+        noMoreArticlesLayout.setVisibility(View.GONE);
+        isArticlesStackEmpty = false;
     }
 
     @Override
@@ -187,6 +208,24 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         return language == null ? NewsType.TOP : NewsType.EVERYTING;
     }
 
+
+    private void handleNoArticlesLayoutVisibility() {
+        if (isArticlesStackEmpty) {
+            noMoreArticlesLayout.setVisibility(View.VISIBLE);
+        } else {
+            noMoreArticlesLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.button_reload_articles)
+    void onReloadArticlesButtonClick() {
+        isArticlesStackEmpty = false;
+        state = null;
+        progressBar.setVisibility(View.VISIBLE);
+        presenter.unsubscribe();
+        onViewCreated(getView(), null);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -206,5 +245,6 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         super.onDestroy();
         articleCardsAdapter = null;
         presenter = null;
+        state = null;
     }
 }

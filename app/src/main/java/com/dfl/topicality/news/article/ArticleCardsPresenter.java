@@ -131,6 +131,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(requestFactory.getEverything(q, null, domains, null, null, language, SortBy.PUBLISHEDAT, 20, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .filter(articles -> !articles.getArticles().isEmpty())
                 .map(articles -> ArticleMapper.mapArticlesToDatabaseArticles(articles.getArticles()))
                 .subscribe(articles -> {
                             view.addArticles(articles);
@@ -143,6 +144,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(requestFactory.getTopHeadlines(category, country, q, PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .filter(articles -> !articles.getArticles().isEmpty())
                 .map(articles -> ArticleMapper.mapArticlesToDatabaseArticles(articles.getArticles()))
                 .subscribe(articles -> {
                             view.addArticles(articles);

@@ -33,7 +33,7 @@ public class TopicalityApplication extends Application {
 
     public NewsApi getRequestFactory() {
         if (requestFactory == null) {
-            requestFactory = new NewsApi("a9b9d5c92bc249ac976e796fb79d7a33", getCacheDir(), 60, 10 * 1024 * 1024L, 45L, 45L);
+            requestFactory = new NewsApi(BuildConfig.NEWS_API_KEY, getCacheDir(), 60, 10 * 1024 * 1024L, 45L, 45L);
         }
         return requestFactory;
     }

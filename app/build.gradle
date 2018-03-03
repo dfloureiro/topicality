@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 def localPropertiesFile = rootProject.file("local.properties")
 def localProperties = new Properties()
@@ -15,6 +16,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
 
         buildConfigField "String", "NEWS_API_KEY", localProperties['newsapikey']
     }
@@ -79,4 +86,13 @@ dependencies {
 
     //API
     implementation "com.github.dfloureiro:news-api-kotlin:${NEWS_API_KOTLIN_VERSION}"
+
+    //FIREBASE
+    implementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
+
+    //CRASHLYTICS
+    implementation("com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}") {
+        transitive = true
+    }
 }
+apply plugin: 'com.google.gms.google-services'

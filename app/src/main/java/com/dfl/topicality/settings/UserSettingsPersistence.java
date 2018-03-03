@@ -34,8 +34,16 @@ public class UserSettingsPersistence {
         return sharedPreferences.getBoolean(FIRST_BOOT_KEY, true);
     }
 
+    public void setCountry(String country) {
+        sharedPreferences.edit().putString(COUNTRY_CODE_KEY, country).apply();
+    }
+
     public Country getCountry() {
         return Country.valueOf(sharedPreferences.getString(COUNTRY_CODE_KEY, localRepository.getCountry()));
+    }
+
+    public void setLanguage(String language) {
+        sharedPreferences.edit().putString(LANGUAGE_CODE_KEY, language).apply();
     }
 
     public Language getLanguage() {

@@ -27,6 +27,8 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
         userSettingsPersistence = ((TopicalityApplication) getApplication()).getUserSettingsPersistence();
 
         if (userSettingsPersistence.isFirstBoot()) {
+            userSettingsPersistence.setCountry(userSettingsPersistence.getCountry().toString());
+            userSettingsPersistence.setLanguage(userSettingsPersistence.getLanguage().toString());
             presenter = new SplashScreenPresenter(this, ((TopicalityApplication) getApplication()).getRequestFactory(),
                     ((TopicalityApplication) getApplication()).getDatabase(), userSettingsPersistence.getCountry(), userSettingsPersistence.getLanguage());
             presenter.subscribe(null);

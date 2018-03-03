@@ -12,7 +12,8 @@ import dfl.com.newsapikotin.enums.Language;
 
 public class UserSettingsPersistence {
 
-    private static final String PREFS_KEY = "com.dfl.topicality";
+    static final String PREFS_KEY = "com.dfl.topicality";
+    static final int PREFS_MODE = Context.MODE_PRIVATE;
     private static final String FIRST_BOOT_KEY = "FIRST_BOOT_KEY";
     private static final String COUNTRY_CODE_KEY = "COUNTRY_CODE_KEY";
     private static final String LANGUAGE_CODE_KEY = "LANGUAGE_CODE_KEY";
@@ -21,8 +22,8 @@ public class UserSettingsPersistence {
     private final LocalRepository localRepository;
 
     public UserSettingsPersistence(Context context) {
-        sharedPreferences = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
-        localRepository = new LocalRepository(context, this);
+        sharedPreferences = context.getSharedPreferences(PREFS_KEY, PREFS_MODE);
+        localRepository = new LocalRepository(context);
     }
 
     public void setFirstBoot() {
@@ -33,16 +34,8 @@ public class UserSettingsPersistence {
         return sharedPreferences.getBoolean(FIRST_BOOT_KEY, true);
     }
 
-    public void setCountry(String country) {
-        sharedPreferences.edit().putString(COUNTRY_CODE_KEY, country).apply();
-    }
-
     public Country getCountry() {
         return Country.valueOf(sharedPreferences.getString(COUNTRY_CODE_KEY, localRepository.getCountry()));
-    }
-
-    public void setLanguage(String language) {
-        sharedPreferences.edit().putString(LANGUAGE_CODE_KEY, language).apply();
     }
 
     public Language getLanguage() {

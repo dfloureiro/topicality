@@ -14,7 +14,8 @@
     <!--bottom navigation-->
     <string name="saved_item_bottom_navigation">Ler mais tarde</string>
     <string name="news_item_bottom_navigation">Notícias</string>
-    <string name="top_item_bottom_navigation">Top</string>
+    <string name="top_item_bottom_navigation">Tendências</string>
+    <string name="settings_bottom_navigation">Definições</string>
 
     <!--no saved articles layout-->
     <string name="no_articles_saved_to_read_later">Nenhum artigo guardado para ler mais tarde</string>
@@ -24,4 +25,12 @@
     <string name="that_s_all_the_articles_we_have_for_now">São todos os artigos que temos por agora</string>
     <string name="check_the_other_categories_for_more">Veja as outras categorias para mais</string>
     <string name="button_reload">Recarregar</string>
+
+    <!--preferences-->
+    <string name="countries_dialog_title_preference">Países</string>
+    <string name="countries_summary_preference">Obter notícias relevantes para este país</string>
+    <string name="countries_title_preference">País preferido</string>
+    <string name="languages_dialog_title_preference">Línguas</string>
+    <string name="languages_summary_preference">Obter notícias escritas nesta língua</string>
+    <string name="languages_title_preference">Língua preferida</string>
 </resources>

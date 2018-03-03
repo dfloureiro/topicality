@@ -11,12 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.dfl.topicality.news.NewsFragment;
 import com.dfl.topicality.news.article.ArticleCardsFragment;
 import com.dfl.topicality.saved.SavedArticlesFragment;
+import com.dfl.topicality.settings.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dfl.com.newsapikotin.enums.Language;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final int NUMBER_OF_TABS = 4;
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         language = ((TopicalityApplication) getApplication()).getUserSettingsPersistence().getLanguage();
 
         viewPager.setAdapter(new ViewPagerAdapter(getFragmentManager()));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(NUMBER_OF_TABS);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.action_saved:
                             viewPager.setCurrentItem(2);
                             break;
+                        case R.id.action_settings:
+                            viewPager.setCurrentItem(3);
                     }
                     return true;
                 });
@@ -68,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                     return ArticleCardsFragment.newInstance(language);
                 case 2:
                     return SavedArticlesFragment.newInstance();
+                case 3:
+                    return SettingsFragment.newInstance();
                 default:
                     return NewsFragment.newInstance();
             }
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return NUMBER_OF_TABS;
         }
     }
 }

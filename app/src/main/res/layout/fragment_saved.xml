@@ -35,10 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_view_no_saved_bookmarks_description"
             android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/text_size_small_padding"
             android:text="@string/swipe_cards_down_to_save_them_for_later"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_small_size" />
 
     </RelativeLayout>
 

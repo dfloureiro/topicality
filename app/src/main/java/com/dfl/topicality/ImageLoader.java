@@ -33,7 +33,7 @@ public class ImageLoader {
 
     public void loadImageIntoImageViewWithProgressBar(String urlToImage, ProgressBar progressBar, ImageView imageView) {
         RequestOptions options = new RequestOptions();
-        requestManager.load(urlToImage).apply(options.centerCrop()).listener(new RequestListener<Drawable>() {
+        requestManager.load(urlToImage).apply(options.centerCrop().placeholder(R.mipmap.ic_launcher_foreground)).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 if (progressBar != null) {

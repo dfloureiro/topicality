@@ -10,7 +10,7 @@
         android:id="@+id/no_more_articles_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/image_view_no_more_articles_image"
@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_view_no_more_articles_description"
             android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/text_size_small_padding"
             android:text="@string/check_the_other_categories_for_more"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_small_size" />
 
         <Button
             android:id="@+id/button_reload_articles"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_view_check_other_categories"
             android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/text_size_small_padding"
             android:text="@string/button_reload" />
 
     </RelativeLayout>

@@ -38,4 +38,18 @@
     <string name="button_refresh">Recarregar</string>
     <string name="network_connection_error">Erro de conexão de rede</string>
     <string name="something_went_wrong">Aconteceu algo errado</string>
+
+    <!--about-->
+    <string name="about_dialog_message">"Topicality é uma app portuguesa open source para ler, guardar e partilhar notícias.\n\nTopicality é desenvolvido por apenas um programador: Twitter @dfloureiro \n\n Todas as notícias são fornecidas por www.newsapi.org. Todo o contéudo é da sua responsabilidade.\n\n Pode verificar o código da app em https://github.com/dfloureiro/topicality\n\n"</string>
+    <string name="about_dialog_title">Sobre</string>
+    <string name="about_preference_category_title">Sobre esta app</string>
+    <string name="about_title_preference">Saiba mais sobre esta app</string>
+    <string name="about_summary_preference">Quem, quando, onde</string>
+
+    <!--contact us-->
+    <string name="feedback_email_subject">Feedback Topicality Android App</string>
+    <string name="feedback_email_chooser">Enviar email…</string>
+    <string name="feedback_email_no_email_client_message">Nenhum cliente de email instalado.</string>
+    <string name="contact_us_title_preference">Contacte-nos</string>
+    <string name="contact_us_summary_preference">Envie-nos a sua opinião</string>
 </resources>

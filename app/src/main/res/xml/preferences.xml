@@ -21,4 +21,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/about_preference_category_title">
+        <Preference
+            android:key="ABOUT_KEY"
+            android:summary="@string/about_summary_preference"
+            android:title="@string/about_title_preference" />
+
+        <Preference
+            android:key="CONTACT_US_KEY"
+            android:summary="@string/contact_us_summary_preference"
+            android:title="@string/contact_us_title_preference" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

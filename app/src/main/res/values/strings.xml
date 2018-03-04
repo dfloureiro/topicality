@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Topicality</string>
+    <string name="developer_email" translatable="false">dfloureiro@protonmail.com</string>
 
     <!--categories-->
     <string name="for_you_category">For you</string>
@@ -38,4 +39,18 @@
     <string name="button_refresh">Refresh</string>
     <string name="network_connection_error">Network connection error</string>
     <string name="something_went_wrong">Something went wrong</string>
+
+    <!--about-->
+    <string name="about_dialog_message">"Topicality is a portuguese open source app to read, save and share news.\n\nTopicality is built by just one developer: Twitter @dfloureiro \n\nAll news are provided by www.newsapi.org. All the content is their responsibility.\n\nYou can checkout the code at https://github.com/dfloureiro/topicality\n\n"</string>
+    <string name="about_dialog_title">About</string>
+    <string name="about_preference_category_title">About this app</string>
+    <string name="about_title_preference">Know more about this app</string>
+    <string name="about_summary_preference">Who, what, when</string>
+
+    <!--contact us-->
+    <string name="feedback_email_subject">Feedback Topicality Android App</string>
+    <string name="feedback_email_chooser">Send email…</string>
+    <string name="feedback_email_no_email_client_message">There are no email clients installed.</string>
+    <string name="contact_us_title_preference">Contact us</string>
+    <string name="contact_us_summary_preference">Send us what you think</string>
 </resources>

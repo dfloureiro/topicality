@@ -3,6 +3,10 @@ package com.dfl.topicality.news.article;
 import com.dfl.topicality.database.DatabaseArticle;
 import com.dfl.topicality.database.DatabaseInteractor;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+
 import dfl.com.newsapikotin.NewsApi;
 import dfl.com.newsapikotin.enums.Category;
 import dfl.com.newsapikotin.enums.Country;
@@ -137,7 +141,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                             view.addArticles(articles);
                             page++;
                         },
-                        error -> view.showLoadingError()));
+                        this::errorHandling));
     }
 
     private void getTopHeadlineArticles() {
@@ -150,6 +154,14 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                             view.addArticles(articles);
                             page++;
                         },
-                        error -> view.showLoadingError()));
+                        this::errorHandling));
+    }
+
+    private void errorHandling(Throwable error) {
+        if (error instanceof UnknownHostException || error instanceof ConnectException || error instanceof SocketTimeoutException) {
+            view.showNetworkError();
+        } else {
+            view.showUnknownError();
+        }
     }
 }

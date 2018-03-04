@@ -25,7 +25,9 @@ public interface ArticleCardsContract {
 
         List<DatabaseArticle> extractRemainingArticles();
 
-        void showLoadingError();
+        void showNetworkError();
+
+        void showUnknownError();
 
         void showSnackBar(String message);
 

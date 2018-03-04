@@ -24,7 +24,6 @@
     <!--no more articles layout-->
     <string name="that_s_all_the_articles_we_have_for_now">São todos os artigos que temos por agora</string>
     <string name="check_the_other_categories_for_more">Veja as outras categorias para mais</string>
-    <string name="button_reload">Recarregar</string>
 
     <!--preferences-->
     <string name="countries_dialog_title_preference">Países</string>
@@ -33,4 +32,9 @@
     <string name="languages_dialog_title_preference">Línguas</string>
     <string name="languages_summary_preference">Obter notícias escritas nesta língua</string>
     <string name="languages_title_preference">Língua preferida</string>
+
+    <!--error handling-->
+    <string name="button_refresh">Recarregar</string>
+    <string name="network_connection_error">Erro de conexão de rede</string>
+    <string name="something_went_wrong">Aconteceu algo errado</string>
 </resources>

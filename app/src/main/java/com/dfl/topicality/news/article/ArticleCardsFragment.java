@@ -50,6 +50,10 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     ConstraintLayout container;
     @BindView(R.id.no_more_articles_layout)
     RelativeLayout noMoreArticlesLayout;
+    @BindView(R.id.network_error_layout)
+    RelativeLayout networkErrorLayout;
+    @BindView(R.id.unknown_error_layout)
+    RelativeLayout unknownErrorLayout;
 
     private Category category;
     private Country country;
@@ -130,7 +134,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
                 }
                 if ((articleCardsAdapter.getCount() - cardStackView.getTopIndex()) == 0) {
                     isArticlesStackEmpty = true;
-                    noMoreArticlesLayout.setVisibility(View.VISIBLE);
+                    handleNoArticlesLayoutVisibility();
                 }
                 state = presenter.getState();
             }
@@ -176,10 +180,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         cardStackView.setPaginationReserved();
         articleCardsAdapter.addAll(articles);
         articleCardsAdapter.notifyDataSetChanged();
-        cardStackView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        noMoreArticlesLayout.setVisibility(View.GONE);
-        isArticlesStackEmpty = false;
     }
 
     @Override
@@ -194,8 +195,15 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     }
 
     @Override
-    public void showLoadingError() {
+    public void showNetworkError() {
         progressBar.setVisibility(View.GONE);
+        networkErrorLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showUnknownError() {
+        progressBar.setVisibility(View.GONE);
+        unknownErrorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -210,18 +218,37 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
 
     private void handleNoArticlesLayoutVisibility() {
-        if (isArticlesStackEmpty) {
+        if (isArticlesStackEmpty && networkErrorLayout.getVisibility() == View.GONE && unknownErrorLayout.getVisibility() == View.GONE) {
             noMoreArticlesLayout.setVisibility(View.VISIBLE);
-        } else {
+        } else if (!isArticlesStackEmpty) {
             noMoreArticlesLayout.setVisibility(View.GONE);
         }
     }
 
-    @OnClick(R.id.button_reload_articles)
-    void onReloadArticlesButtonClick() {
+    @OnClick(R.id.button_retry_articles)
+    void onRetryArticlesButtonClick() {
+        noMoreArticlesLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        refresh();
+    }
+
+    @OnClick(R.id.button_retry_network_error)
+    void onRetryNetworkErrorButtonClick() {
+        networkErrorLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        refresh();
+    }
+
+    @OnClick(R.id.button_retry_unknown_error)
+    void onRetryUnknownErrorButtonClick() {
+        unknownErrorLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        refresh();
+    }
+
+    private void refresh() {
         isArticlesStackEmpty = false;
         state = null;
-        progressBar.setVisibility(View.VISIBLE);
         presenter.unsubscribe();
         onViewCreated(getView(), null);
     }

@@ -1,56 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_news_cards_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/no_more_articles_layout"
+    <include
+        layout="@layout/no_more_articles_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/image_view_no_more_articles_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:tint="@color/colorPrimaryDark"
-            app:srcCompat="@drawable/ic_newspaper"
-            tools:ignore="ContentDescription" />
+    <include
+        layout="@layout/unknown_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/text_view_no_more_articles_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image_view_no_more_articles_image"
-            android:layout_centerHorizontal="true"
-            android:text="@string/that_s_all_the_articles_we_have_for_now" />
-
-        <TextView
-            android:id="@+id/text_view_check_other_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_no_more_articles_description"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="@dimen/text_size_small_padding"
-            android:text="@string/check_the_other_categories_for_more"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/text_size_small_size" />
-
-        <Button
-            android:id="@+id/button_reload_articles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_check_other_categories"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="@dimen/text_size_small_padding"
-            android:text="@string/button_reload" />
-
-    </RelativeLayout>
+    <include
+        layout="@layout/network_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/main_fragment_card_stack_view"

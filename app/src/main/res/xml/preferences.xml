@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Location preferences">
+    <PreferenceCategory android:title="@string/locale_preference_category_title">
 
         <ListPreference
             android:dialogTitle="@string/countries_dialog_title_preference"

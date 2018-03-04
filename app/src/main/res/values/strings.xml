@@ -26,6 +26,7 @@
     <string name="check_the_other_categories_for_more">Check the other categories for more</string>
 
     <!--preferences-->
+    <string name="locale_preference_category_title">Location preferences</string>
     <string name="countries_dialog_title_preference">Countries</string>
     <string name="countries_summary_preference">Get relevant news for this country</string>
     <string name="countries_title_preference">Preferred country</string>

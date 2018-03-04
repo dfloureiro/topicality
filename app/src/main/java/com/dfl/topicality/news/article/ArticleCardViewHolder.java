@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Created by loureiro on 29-01-2018.
  */
 
-public class ArticleCardViewHolder {
+class ArticleCardViewHolder {
 
     @BindView(R.id.text_view_title)
     TextView title;

@@ -1,6 +1,7 @@
 package com.dfl.topicality.news.article;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -90,14 +91,19 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_cards, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
@@ -169,7 +175,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(NO_MORE_ARTICLES_KEY, isArticlesStackEmpty);
         outState.putParcelable(ArticleCardsState.ARTICLE_CARDS_STATE, state);
@@ -213,7 +219,7 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
 
     @Override
     public NewsType getTypeOfNews() {
-        return language == null ? NewsType.TOP : NewsType.EVERYTING;
+        return language == null ? NewsType.TOP : NewsType.EVERYTHING;
     }
 
 

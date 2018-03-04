@@ -8,7 +8,7 @@ import com.dfl.topicality.base.BaseView;
  * Created by loureiro on 18-02-2018.
  */
 
-public class SplashScreenContract {
+class SplashScreenContract {
 
     interface View extends BaseView {
 

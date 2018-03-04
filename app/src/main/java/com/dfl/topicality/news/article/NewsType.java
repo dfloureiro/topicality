@@ -5,5 +5,5 @@ package com.dfl.topicality.news.article;
  */
 
 public enum NewsType {
-    EVERYTING, TOP
+    EVERYTHING, TOP
 }

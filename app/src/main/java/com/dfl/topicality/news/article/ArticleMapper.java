@@ -16,13 +16,12 @@ class ArticleMapper {
     static List<DatabaseArticle> mapArticlesToDatabaseArticles(List<Article> articles) {
         List<DatabaseArticle> databaseArticles = new ArrayList<>();
         for (Article article : articles) {
-            databaseArticles.add(mapArticleToDatabaseArticle(article));
+            String articleSource = article.getSource() != null ? article.getSource().getName() : "Unknown";
+            if (article.getUrl() != null) {
+                databaseArticles.add(new DatabaseArticle(article.getUrl(), articleSource,
+                        article.getAuthor(), article.getTitle(), article.getDescription(), article.getUrlToImage(), article.getPublishedAt()));
+            }
         }
         return databaseArticles;
-    }
-
-    private static DatabaseArticle mapArticleToDatabaseArticle(Article article) {
-        return new DatabaseArticle(article.getUrl(), article.getSource().getName(),
-                article.getAuthor(), article.getTitle(), article.getDescription(), article.getUrlToImage(), article.getPublishedAt());
     }
 }

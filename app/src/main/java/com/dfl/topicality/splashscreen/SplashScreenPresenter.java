@@ -68,11 +68,21 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
                                 .observeOn(AndroidSchedulers.mainThread()),
                         (articles, sources) -> {
                             List<FavoriteSource> favoriteSources = new ArrayList<>();
-                            for (Model.Article article : articles.getArticles()) {
-                                favoriteSources.add(new FavoriteSource(DomainUtils.getDomainName(article.getUrl()), 0, 0));
+                            if (articles.getArticles() != null) {
+                                for (Model.Article article : articles.getArticles()) {
+                                    String url = DomainUtils.getDomainName(article.getUrl());
+                                    if (url != null) {
+                                        favoriteSources.add(new FavoriteSource(url, 0, 0));
+                                    }
+                                }
                             }
-                            for (Model.Source source : sources.getSources()) {
-                                favoriteSources.add(new FavoriteSource(DomainUtils.getDomainName(source.getUrl()), 0, 0));
+                            if (sources.getSources() != null) {
+                                for (Model.Source source : sources.getSources()) {
+                                    String url = DomainUtils.getDomainName(source.getUrl());
+                                    if (url != null) {
+                                        favoriteSources.add(new FavoriteSource(url, 0, 0));
+                                    }
+                                }
                             }
 
                             return favoriteSources;
@@ -88,7 +98,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
         compositeDisposable.add(databaseInteractor.insertAllFavoriteSources(sources)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.finishSplash(),
+                .subscribe(view::finishSplash,
                         throwable -> Log.e("error", throwable.getMessage())));
     }
 }

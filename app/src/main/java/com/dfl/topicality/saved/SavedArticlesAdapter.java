@@ -1,5 +1,6 @@
 package com.dfl.topicality.saved;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -26,14 +27,15 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
         this.presenter = presenter;
     }
 
+    @NonNull
     @Override
-    public SavedArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SavedArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new SavedArticleViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.saved_list_item, parent, false), presenter);
     }
 
     @Override
-    public void onBindViewHolder(SavedArticleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SavedArticleViewHolder holder, int position) {
         DatabaseArticle databaseArticle = databaseArticleList.get(position);
         holder.setImage(imageLoader, databaseArticle.getUrlToImage());
         holder.setTitle(databaseArticle.getTitle());

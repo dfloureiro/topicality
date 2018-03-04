@@ -14,6 +14,7 @@ class SplashScreenContract {
 
         void finishSplash();
 
+        void showNetworkError();
     }
 
     interface Presenter extends BasePresenter<State> {

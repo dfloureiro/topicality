@@ -90,7 +90,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(favoriteSources -> addAllFavoriteSources(favoriteSources.toArray(new FavoriteSource[favoriteSources.size()])),
-                                throwable -> Log.e("error", throwable.getMessage())
+                                throwable -> view.showNetworkError()
                         ));
     }
 

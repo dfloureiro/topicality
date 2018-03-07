@@ -1,12 +1,16 @@
 package com.dfl.topicality.database;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -18,7 +22,7 @@ public class DatabaseInteractor {
     private AppDatabase appDatabase;
 
     public DatabaseInteractor(Context context) {
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database").build();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database").addMigrations(MIGRATION_1_2).build();
     }
 
     public Completable insertAllDatabaseArticles(DatabaseArticle... databaseArticles) {
@@ -30,8 +34,12 @@ public class DatabaseInteractor {
         return appDatabase.getSavedArticleDao().getAll();
     }
 
-    public Completable deleteDatabaseArticleWhereUrl(String url) {
-        return Completable.fromAction(() -> appDatabase.getSavedArticleDao().deleteWhereUrl(url));
+    public Maybe<List<DatabaseArticle>> getDatabaseArticleFromUrl(List<String> urlsList) {
+        return appDatabase.getSavedArticleDao().getWhereUrl(urlsList);
+    }
+
+    public Completable deleteDatabaseArticleFromSavedWhereUrl(String url) {
+        return Completable.fromAction(() -> appDatabase.getSavedArticleDao().deleteFromSavedWhereUrl(url));
     }
 
     public Completable upsertFavoriteSourcesClicks(String sourceDomain) {
@@ -51,4 +59,11 @@ public class DatabaseInteractor {
     public Single<List<FavoriteSource>> getAllFavoriteSourcesOrderByInteractionsDes() {
         return appDatabase.getFavoriteSourceDao().getAllOrderByNumberInteractionsDesc();
     }
+
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE databasearticle ADD COLUMN is_favourite BOOL DEFAULT 1");
+        }
+    };
 }

@@ -43,6 +43,7 @@ public class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
         if (article != null) {
             articleCardViewHolder.setTitle(article.getTitle());
             articleCardViewHolder.setUrlToImage(imageLoader, article.getUrlToImage());
+            articleCardViewHolder.setIsViewedIcon(article.isViewed());
         }
 
         return contentView;

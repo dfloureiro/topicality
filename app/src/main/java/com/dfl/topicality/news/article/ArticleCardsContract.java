@@ -45,6 +45,8 @@ public interface ArticleCardsContract {
 
         void getArticles();
 
+        void setArticleAsViewed(DatabaseArticle databaseArticle);
+
         void saveArticle(DatabaseArticle article);
 
         void upsertFavoriteSourceClicks(String sourceDomain);

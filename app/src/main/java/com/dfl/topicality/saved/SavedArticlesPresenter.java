@@ -62,8 +62,8 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
     }
 
     @Override
-    public void deleteArticle(String url, int viewHolderPosition) {
-        compositeDisposable.add(databaseInteractor.deleteDatabaseArticleWhereUrl(url)
+    public void removeFromSaved(String url, int viewHolderPosition) {
+        compositeDisposable.add(databaseInteractor.deleteDatabaseArticleFromSavedWhereUrl(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {

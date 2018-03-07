@@ -82,7 +82,7 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                presenter.deleteArticle(((SavedArticleViewHolder) viewHolder).getUrl(), viewHolder.getAdapterPosition());
+                presenter.removeFromSaved(((SavedArticleViewHolder) viewHolder).getUrl(), viewHolder.getAdapterPosition());
             }
         });
 

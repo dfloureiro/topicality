@@ -78,12 +78,14 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
 
     @Override
     public void setArticleAsViewed(DatabaseArticle databaseArticle) {
+        databaseArticle.setIsViewed(1);
         saveArticleToDatabase(databaseArticle);
     }
 
     @Override
     public void saveArticle(DatabaseArticle databaseArticle) {
-        databaseArticle.setFavourite(true);
+        databaseArticle.setIsViewed(1);
+        databaseArticle.setIsFavourite(1);
         saveArticleToDatabase(databaseArticle);
     }
 
@@ -154,11 +156,10 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(databaseArticles -> {
                             for (DatabaseArticle databaseArticle : databaseArticles) {
-                                boolean wasSeen = false;
-                                for (int position = 0; position < articles.size() && !wasSeen; position++) {
+                                for (int position = 0; position < articles.size(); position++) {
                                     if (articles.get(position).getUrl().equals(databaseArticle.getUrl())) {
-                                        articles.get(position).setViewed(true);
-                                        wasSeen = true;
+                                        articles.get(position).setIsViewed(1);
+                                        break;
                                     }
                                 }
                             }

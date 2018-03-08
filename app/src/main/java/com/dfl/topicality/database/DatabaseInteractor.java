@@ -1,10 +1,7 @@
 package com.dfl.topicality.database;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
-import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -22,7 +19,9 @@ public class DatabaseInteractor {
     private AppDatabase appDatabase;
 
     public DatabaseInteractor(Context context) {
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database").addMigrations(MIGRATION_1_2).build();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database")
+                .addMigrations(MigrationHelper.MIGRATION_1_2)
+                .build();
     }
 
     public Completable insertAllDatabaseArticles(DatabaseArticle... databaseArticles) {
@@ -59,11 +58,4 @@ public class DatabaseInteractor {
     public Single<List<FavoriteSource>> getAllFavoriteSourcesOrderByInteractionsDes() {
         return appDatabase.getFavoriteSourceDao().getAllOrderByNumberInteractionsDesc();
     }
-
-    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE databasearticle ADD COLUMN is_favourite BOOL DEFAULT 1");
-        }
-    };
 }

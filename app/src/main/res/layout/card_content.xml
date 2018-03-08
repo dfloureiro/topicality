@@ -29,6 +29,20 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/size_text_view_card" />
 
+        <ImageView
+            android:id="@+id/image_view_viewed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/text_view_background_round_corners"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_seen"
+            tools:ignore="ContentDescription" />
+
         <ProgressBar
             android:id="@+id/card_progress_bar"
             android:layout_width="wrap_content"

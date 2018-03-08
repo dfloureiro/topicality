@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -18,7 +19,9 @@ public class DatabaseInteractor {
     private AppDatabase appDatabase;
 
     public DatabaseInteractor(Context context) {
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database").build();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database")
+                .addMigrations(MigrationHelper.MIGRATION_1_2)
+                .build();
     }
 
     public Completable insertAllDatabaseArticles(DatabaseArticle... databaseArticles) {
@@ -30,8 +33,12 @@ public class DatabaseInteractor {
         return appDatabase.getSavedArticleDao().getAll();
     }
 
-    public Completable deleteDatabaseArticleWhereUrl(String url) {
-        return Completable.fromAction(() -> appDatabase.getSavedArticleDao().deleteWhereUrl(url));
+    public Maybe<List<DatabaseArticle>> getDatabaseArticleFromUrl(List<String> urlsList) {
+        return appDatabase.getSavedArticleDao().getWhereUrl(urlsList);
+    }
+
+    public Completable deleteDatabaseArticleFromSavedWhereUrl(String url) {
+        return Completable.fromAction(() -> appDatabase.getSavedArticleDao().deleteFromSavedWhereUrl(url));
     }
 
     public Completable upsertFavoriteSourcesClicks(String sourceDomain) {

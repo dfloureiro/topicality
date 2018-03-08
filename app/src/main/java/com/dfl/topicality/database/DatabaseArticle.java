@@ -29,6 +29,11 @@ public class DatabaseArticle implements Parcelable {
     private String urlToImage;
     @ColumnInfo(name = "date")
     private String publishedAt;
+    @ColumnInfo(name = "is_favourite")
+    private int isFavourite;
+    @ColumnInfo(name = "is_viewed")
+    private int isViewed;
+
 
     public DatabaseArticle(@NonNull String url, String sourceName, String author, String title, String description, String urlToImage, String publishedAt) {
         this.url = url;
@@ -38,6 +43,8 @@ public class DatabaseArticle implements Parcelable {
         this.description = description;
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
+        this.isFavourite = 0;
+        this.isViewed = 0;
     }
 
     private DatabaseArticle(Parcel in) {
@@ -48,6 +55,8 @@ public class DatabaseArticle implements Parcelable {
         description = in.readString();
         urlToImage = in.readString();
         publishedAt = in.readString();
+        isFavourite = in.readInt();
+        isViewed = in.readInt();
     }
 
     public static final Creator<DatabaseArticle> CREATOR = new Creator<DatabaseArticle>() {
@@ -76,6 +85,8 @@ public class DatabaseArticle implements Parcelable {
         dest.writeString(description);
         dest.writeString(urlToImage);
         dest.writeString(publishedAt);
+        dest.writeInt(isFavourite);
+        dest.writeInt(isViewed);
     }
 
 
@@ -134,5 +145,21 @@ public class DatabaseArticle implements Parcelable {
 
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    public int getIsFavourite() {
+        return isFavourite;
+    }
+
+    public void setIsFavourite(int isFavourite) {
+        this.isFavourite = isFavourite;
+    }
+
+    public int getIsViewed() {
+        return isViewed;
+    }
+
+    public void setIsViewed(int isViewed) {
+        this.isViewed = isViewed;
     }
 }

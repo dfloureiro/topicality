@@ -21,6 +21,8 @@ class ArticleCardViewHolder {
     TextView title;
     @BindView(R.id.image_view_card)
     ImageView imageViewCard;
+    @BindView(R.id.image_view_viewed)
+    ImageView isViewedIcon;
     @BindView(R.id.card_progress_bar)
     ProgressBar progressBar;
 
@@ -34,5 +36,13 @@ class ArticleCardViewHolder {
 
     void setUrlToImage(ImageLoader imageLoader, String urlToImage) {
         imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage, progressBar, imageViewCard);
+    }
+
+    void setIsViewedIcon(boolean isViewedArticle) {
+        if (isViewedArticle) {
+            isViewedIcon.setVisibility(View.VISIBLE);
+        } else {
+            isViewedIcon.setVisibility(View.GONE);
+        }
     }
 }

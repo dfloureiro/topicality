@@ -35,7 +35,7 @@ public interface SavedArticlesContract {
 
         void getAllArticles();
 
-        void deleteArticle(String url, int viewHolderPosition);
+        void removeFromSaved(String url, int viewHolderPosition);
 
         void upsertFavoriteSourceClicks(String sourceDomain);
     }

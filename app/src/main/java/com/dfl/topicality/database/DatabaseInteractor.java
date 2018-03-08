@@ -20,7 +20,7 @@ public class DatabaseInteractor {
 
     public DatabaseInteractor(Context context) {
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database")
-                .addMigrations(MigrationHelper.MIGRATION_1_2)
+                .addMigrations(MigrationHelper.MIGRATION_1_2, MigrationHelper.MIGRATION_2_3)
                 .build();
     }
 

@@ -45,4 +45,8 @@ class ArticleCardViewHolder {
             isViewedIcon.setVisibility(View.GONE);
         }
     }
+
+    void setIsViewedIconColor(int color) {
+        isViewedIcon.setColorFilter(color);
+    }
 }

@@ -8,7 +8,7 @@ import android.arch.persistence.room.Transaction;
  * Created by loureiro on 31-01-2018.
  */
 
-@Database(entities = {DatabaseArticle.class, FavoriteSource.class}, version = 2)
+@Database(entities = {DatabaseArticle.class, FavoriteSource.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     abstract SavedArticleDao getSavedArticleDao();
 

@@ -7,6 +7,7 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dfl.com.newsapikotin.NewsApi;
@@ -74,6 +75,13 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
     @Override
     public ArticleCardsContract.State getState() {
         return new ArticleCardsState(page, domains, view.extractRemainingArticles());
+    }
+
+    @Override
+    public void setArticleAsClicked(DatabaseArticle databaseArticle) {
+        databaseArticle.setIsViewed(1);
+        databaseArticle.setIsClicked(1);
+        saveArticleToDatabase(databaseArticle);
     }
 
     @Override
@@ -159,10 +167,12 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                                 for (int position = 0; position < articles.size(); position++) {
                                     if (articles.get(position).getUrl().equals(databaseArticle.getUrl())) {
                                         articles.get(position).setIsViewed(1);
+                                        articles.get(position).setIsClicked(databaseArticle.getIsClicked());
                                         break;
                                     }
                                 }
                             }
+                            Collections.sort(articles, (databaseArticle1, databaseArticle2) -> Integer.compare(databaseArticle1.getIsViewed(), databaseArticle2.getIsViewed()));
                             view.addArticles(articles);
                             page++;
                         },

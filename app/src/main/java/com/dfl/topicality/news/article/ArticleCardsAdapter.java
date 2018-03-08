@@ -18,10 +18,12 @@ import com.dfl.topicality.database.DatabaseArticle;
 public class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
 
     private ImageLoader imageLoader;
+    private int color;
 
     ArticleCardsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
         imageLoader = new ImageLoader(getContext());
+        color = context.getResources().getColor(R.color.color_clicked_eye);
     }
 
     @NonNull
@@ -43,7 +45,10 @@ public class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
         if (article != null) {
             articleCardViewHolder.setTitle(article.getTitle());
             articleCardViewHolder.setUrlToImage(imageLoader, article.getUrlToImage());
-            articleCardViewHolder.setIsViewedIcon(article.getIsViewed() == 1);
+            articleCardViewHolder.setIsViewedIcon(article.getIsViewed() == 1 || article.getIsClicked() == 1);
+            if (article.getIsClicked() == 1) {
+                articleCardViewHolder.setIsViewedIconColor(color);
+            }
         }
 
         return contentView;

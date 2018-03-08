@@ -45,6 +45,8 @@ public interface ArticleCardsContract {
 
         void getArticles();
 
+        void setArticleAsClicked(DatabaseArticle databaseArticle);
+
         void setArticleAsViewed(DatabaseArticle databaseArticle);
 
         void saveArticle(DatabaseArticle article);

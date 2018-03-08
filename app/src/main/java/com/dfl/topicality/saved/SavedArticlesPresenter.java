@@ -1,5 +1,6 @@
 package com.dfl.topicality.saved;
 
+import com.dfl.topicality.database.DatabaseArticle;
 import com.dfl.topicality.database.DatabaseInteractor;
 
 import java.util.ArrayList;
@@ -79,6 +80,32 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
     @Override
     public void upsertFavoriteSourceClicks(String sourceDomain) {
         compositeDisposable.add(databaseInteractor.upsertFavoriteSourcesClicks(sourceDomain)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                        },
+                        throwable -> view.showSnackBar(throwable.getMessage())));
+    }
+
+    @Override
+    public void setArticleAsClicked(String url) {
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add(url);
+        compositeDisposable.add(databaseInteractor.getDatabaseArticleFromUrl(urls)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(databaseArticles -> {
+                            for (DatabaseArticle databaseArticle : databaseArticles) {
+                                databaseArticle.setIsViewed(1);
+                                databaseArticle.setIsClicked(1);
+                                addDatabaseArticleToDatabase(databaseArticle);
+                            }
+                        },
+                        throwable -> view.showSnackBar(throwable.getMessage())));
+    }
+
+    private void addDatabaseArticleToDatabase(DatabaseArticle databaseArticle) {
+        compositeDisposable.add(databaseInteractor.insertAllDatabaseArticles(databaseArticle)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {

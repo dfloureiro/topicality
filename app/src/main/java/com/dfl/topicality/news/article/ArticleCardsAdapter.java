@@ -23,7 +23,7 @@ public class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
     ArticleCardsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
         imageLoader = new ImageLoader(getContext());
-        color = context.getResources().getColor(R.color.color_clicked_eye);
+        color = context.getResources().getColor(R.color.colorAccent);
     }
 
     @NonNull

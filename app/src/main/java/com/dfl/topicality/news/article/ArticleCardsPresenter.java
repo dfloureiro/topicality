@@ -6,6 +6,8 @@ import com.dfl.topicality.database.DatabaseInteractor;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dfl.com.newsapikotin.NewsApi;
 import dfl.com.newsapikotin.enums.Category;
@@ -35,6 +37,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
     private String domains;
     private int page;
     private final CompositeDisposable compositeDisposable;
+    private List<String> urlsList;
 
     ArticleCardsPresenter(ArticleCardsFragment view, NewsApi requestFactory, DatabaseInteractor databaseInteractor, Category category, Country country, Language language, String q) {
         this.view = view;
@@ -74,7 +77,19 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
     }
 
     @Override
-    public void saveArticle(DatabaseArticle article) {
+    public void setArticleAsViewed(DatabaseArticle databaseArticle) {
+        databaseArticle.setIsViewed(1);
+        saveArticleToDatabase(databaseArticle);
+    }
+
+    @Override
+    public void saveArticle(DatabaseArticle databaseArticle) {
+        databaseArticle.setIsViewed(1);
+        databaseArticle.setIsFavourite(1);
+        saveArticleToDatabase(databaseArticle);
+    }
+
+    private void saveArticleToDatabase(DatabaseArticle article) {
         compositeDisposable.add(databaseInteractor.insertAllDatabaseArticles(article)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -131,16 +146,36 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         }
     }
 
+    private void checkIfArticlesAreViewed(List<DatabaseArticle> articles) {
+        List<String> urlsList = new ArrayList<>();
+        for (DatabaseArticle article : articles) {
+            urlsList.add(article.getUrl());
+        }
+        compositeDisposable.add(databaseInteractor.getDatabaseArticleFromUrl(urlsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(databaseArticles -> {
+                            for (DatabaseArticle databaseArticle : databaseArticles) {
+                                for (int position = 0; position < articles.size(); position++) {
+                                    if (articles.get(position).getUrl().equals(databaseArticle.getUrl())) {
+                                        articles.get(position).setIsViewed(1);
+                                        break;
+                                    }
+                                }
+                            }
+                            view.addArticles(articles);
+                            page++;
+                        },
+                        throwable -> view.showSnackBar(throwable.getMessage())));
+    }
+
     private void getEverythingArticlesWithDomains() {
         compositeDisposable.add(requestFactory.getEverything(q, null, domains, null, null, language, SortBy.PUBLISHEDAT, 20, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(articles -> !articles.getArticles().isEmpty())
                 .map(articles -> ArticleMapper.mapArticlesToDatabaseArticles(articles.getArticles()))
-                .subscribe(articles -> {
-                            view.addArticles(articles);
-                            page++;
-                        },
+                .subscribe(this::checkIfArticlesAreViewed,
                         this::errorHandling));
     }
 
@@ -150,10 +185,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(articles -> !articles.getArticles().isEmpty())
                 .map(articles -> ArticleMapper.mapArticlesToDatabaseArticles(articles.getArticles()))
-                .subscribe(articles -> {
-                            view.addArticles(articles);
-                            page++;
-                        },
+                .subscribe(this::checkIfArticlesAreViewed,
                         this::errorHandling));
     }
 

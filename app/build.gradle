@@ -11,8 +11,8 @@ android {
         applicationId "com.dfl.topicality"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -21,6 +21,10 @@ android {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
+        }
+        sourceSets {
+            androidTest.assets.srcDirs +=
+                    files("$projectDir/schemas".toString())
         }
 
         buildConfigField "String", "NEWS_API_KEY", localProperties['newsapikey']
@@ -48,8 +52,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:2.15.0"
+    androidTestImplementation "org.mockito:mockito-core:2.15.0"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation("android.arch.persistence.room:testing:1.1.0-alpha2") {
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
 
     //ANDROID
     implementation "com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"
@@ -85,10 +94,10 @@ dependencies {
     implementation "com.github.dfloureiro:news-api-kotlin:${NEWS_API_KOTLIN_VERSION}"
 
     //FIREBASE
-    implementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
+    releaseImplementation "com.google.firebase:firebase-core:${FIREBASE_VERSION}"
 
     //CRASHLYTICS
-    implementation("com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}") {
+    releaseImplementation("com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}") {
         transitive = true
     }
 }

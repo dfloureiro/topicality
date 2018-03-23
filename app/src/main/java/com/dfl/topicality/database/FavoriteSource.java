@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
  * Created by loureiro on 18-02-2018.
  */
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @Entity
 public class FavoriteSource {
 

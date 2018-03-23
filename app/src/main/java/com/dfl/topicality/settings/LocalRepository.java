@@ -15,10 +15,10 @@ class LocalRepository {
     private static final String DEFAULT_COUNTRY = "US";
     private static final String DEFAULT_LANGUAGE = "EN";
 
-    private String locale;
-    private String language;
-    private String[] countryCodes;
-    private String[] languageCodes;
+    private final String locale;
+    private final String language;
+    private final String[] countryCodes;
+    private final String[] languageCodes;
 
     LocalRepository(Context context) {
         locale = context.getResources().getConfiguration().locale.getCountry();

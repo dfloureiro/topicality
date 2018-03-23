@@ -15,13 +15,13 @@ import com.dfl.topicality.database.DatabaseArticle;
  * Created by loureiro on 29-01-2018.
  */
 
-public class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
+class ArticleCardsAdapter extends ArrayAdapter<DatabaseArticle> {
 
-    private ImageLoader imageLoader;
-    private int color;
+    private final ImageLoader imageLoader;
+    private final int color;
 
-    ArticleCardsAdapter(@NonNull Context context, int resource) {
-        super(context, resource);
+    ArticleCardsAdapter(@NonNull Context context) {
+        super(context, 0);
         imageLoader = new ImageLoader(getContext());
         color = context.getResources().getColor(R.color.colorAccent);
     }

@@ -22,7 +22,7 @@ import io.reactivex.annotations.Nullable;
 
 public class ImageLoader {
 
-    private RequestManager requestManager;
+    private final RequestManager requestManager;
 
     /**
      * @param context Should pass the current context, not the application context.

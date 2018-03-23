@@ -2,7 +2,6 @@
 <resources>
 
     <!--categories-->
-    <string name="for_you_category">Para si</string>
     <string name="general_category">Geral</string>
     <string name="sports_category">Desporto</string>
     <string name="technology_category">Tecnologia</string>

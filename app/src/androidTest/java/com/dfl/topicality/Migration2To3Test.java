@@ -28,7 +28,7 @@ public class Migration2To3Test {
     private static final String TEST_DB = "migration-test";
 
     @Rule
-    public MigrationTestHelper migrationTestHelper = new MigrationTestHelper(InstrumentationRegistry.getInstrumentation(),
+    public final MigrationTestHelper migrationTestHelper = new MigrationTestHelper(InstrumentationRegistry.getInstrumentation(),
             AppDatabase.class.getCanonicalName(),
             new FrameworkSQLiteOpenHelperFactory());
 

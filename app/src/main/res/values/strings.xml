@@ -3,7 +3,6 @@
     <string name="developer_email" translatable="false">dfloureiro@protonmail.com</string>
 
     <!--categories-->
-    <string name="for_you_category">For you</string>
     <string name="general_category">General</string>
     <string name="sports_category">Sports</string>
     <string name="technology_category">Technology</string>

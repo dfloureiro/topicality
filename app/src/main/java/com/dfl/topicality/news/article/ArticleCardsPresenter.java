@@ -38,7 +38,6 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
     private String domains;
     private int page;
     private final CompositeDisposable compositeDisposable;
-    private List<String> urlsList;
 
     ArticleCardsPresenter(ArticleCardsFragment view, NewsApi requestFactory, DatabaseInteractor databaseInteractor, Category category, Country country, Language language, String q) {
         this.view = view;
@@ -183,7 +182,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(requestFactory.getEverything(q, null, domains, null, null, language, SortBy.PUBLISHEDAT, 20, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(articles -> !articles.getArticles().isEmpty())
+                .filter(articles -> articles.getArticles() != null && !articles.getArticles().isEmpty())
                 .map(articles -> ArticleMapper.mapArticlesToDatabaseArticles(articles.getArticles()))
                 .subscribe(this::checkIfArticlesAreViewed,
                         this::errorHandling));
@@ -193,7 +192,7 @@ public class ArticleCardsPresenter implements ArticleCardsContract.Presenter {
         compositeDisposable.add(requestFactory.getTopHeadlines(category, country, q, PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(articles -> !articles.getArticles().isEmpty())
+                .filter(articles -> articles.getArticles() != null && !articles.getArticles().isEmpty())
                 .map(articles -> ArticleMapper.mapArticlesToDatabaseArticles(articles.getArticles()))
                 .subscribe(this::checkIfArticlesAreViewed,
                         this::errorHandling));

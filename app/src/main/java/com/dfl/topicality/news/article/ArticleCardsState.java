@@ -15,8 +15,8 @@ public class ArticleCardsState implements ArticleCardsContract.State, Parcelable
 
     static final String ARTICLE_CARDS_STATE = "ARTICLE_CARDS_STATE";
 
-    private int page;
-    private String domains;
+    private final int page;
+    private final String domains;
     private List<DatabaseArticle> databaseArticleList;
 
     ArticleCardsState(int page, String domains, List<DatabaseArticle> databaseArticleList) {

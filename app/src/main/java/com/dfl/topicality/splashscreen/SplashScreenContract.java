@@ -17,6 +17,7 @@ class SplashScreenContract {
         void showNetworkError();
     }
 
+    @SuppressWarnings("unused")
     interface Presenter extends BasePresenter<State> {
 
         /**

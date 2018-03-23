@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
  * Created by loureiro on 31-01-2018.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.saved_item_progress_bar)

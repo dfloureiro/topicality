@@ -24,6 +24,7 @@ public interface SavedArticlesContract {
         void showNoBookmarksLayout();
     }
 
+    @SuppressWarnings("unused")
     interface Presenter extends BasePresenter<SavedArticlesContract.State> {
 
         /**

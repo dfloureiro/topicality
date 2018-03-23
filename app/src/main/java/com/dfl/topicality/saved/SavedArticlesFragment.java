@@ -65,14 +65,16 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        imageLoader = new ImageLoader(getActivity());
-        presenter = new SavedArticlesPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getDatabase());
-        recyclerView.setLayoutManager(layoutManager);
-        savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), imageLoader, presenter);
-        recyclerView.setAdapter(savedArticlesAdapter);
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        if (getActivity() != null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            imageLoader = new ImageLoader(getActivity());
+            presenter = new SavedArticlesPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getDatabase());
+            recyclerView.setLayoutManager(layoutManager);
+            savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), imageLoader, presenter);
+            recyclerView.setAdapter(savedArticlesAdapter);
+            recyclerView.addItemDecoration(
+                    new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        }
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override

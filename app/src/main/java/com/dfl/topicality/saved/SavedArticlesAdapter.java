@@ -18,8 +18,8 @@ import java.util.List;
 public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewHolder> {
 
     private final List<DatabaseArticle> databaseArticleList;
-    private ImageLoader imageLoader;
-    private SavedArticlesContract.Presenter presenter;
+    private final ImageLoader imageLoader;
+    private final SavedArticlesContract.Presenter presenter;
 
     SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, ImageLoader imageLoader, SavedArticlesContract.Presenter presenter) {
         this.databaseArticleList = databaseArticleList;

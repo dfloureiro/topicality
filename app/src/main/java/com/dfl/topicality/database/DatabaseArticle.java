@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
  * Created by loureiro on 31-01-2018.
  */
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @Entity
 public class DatabaseArticle implements Parcelable {
 

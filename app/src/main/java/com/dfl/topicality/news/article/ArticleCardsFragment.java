@@ -35,6 +35,7 @@ import dfl.com.newsapikotin.enums.Language;
  * Created by loureiro on 29-01-2018.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class ArticleCardsFragment extends Fragment implements ArticleCardsContract.View {
 
     private final static String CATEGORY_KEY = "CATEGORY_KEY";
@@ -98,11 +99,6 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -123,54 +119,61 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
             state = savedInstanceState.getParcelable(ArticleCardsState.ARTICLE_CARDS_STATE);
         }
 
-        articleCardsAdapter = new ArticleCardsAdapter(getActivity(), 0);
-        cardStackView.setAdapter(articleCardsAdapter);
+        if (getActivity() != null) {
+            articleCardsAdapter = new ArticleCardsAdapter(getActivity());
+            cardStackView.setAdapter(articleCardsAdapter);
 
-        cardStackView.setCardEventListener(new CardStackView.CardEventListener() {
+            cardStackView.setCardEventListener(new CardStackView.CardEventListener() {
 
-            @Override
-            public void onCardSwiped(SwipeDirection direction) {
-                int index = cardStackView.getTopIndex() - 1;
-                if (direction.equals(SwipeDirection.Bottom) && articleCardsAdapter.getCount() > index) {
-                    presenter.saveArticle(articleCardsAdapter.getItem(index));
-                    presenter.upsertFavoriteSourceSaved(DomainUtils.getDomainName(articleCardsAdapter.getItem(index).getUrl()));
-                } else if (articleCardsAdapter.getCount() > index) {
-                    presenter.setArticleAsViewed(articleCardsAdapter.getItem(index));
+                @Override
+                public void onCardSwiped(SwipeDirection direction) {
+                    int index = cardStackView.getTopIndex() - 1;
+                    if (direction.equals(SwipeDirection.Bottom) && articleCardsAdapter.getCount() > index) {
+                        presenter.saveArticle(articleCardsAdapter.getItem(index));
+                        DatabaseArticle databaseArticle = articleCardsAdapter.getItem(index);
+                        if (databaseArticle != null) {
+                            presenter.upsertFavoriteSourceSaved(DomainUtils.getDomainName(databaseArticle.getUrl()));
+                        }
+                    } else if (articleCardsAdapter.getCount() > index) {
+                        presenter.setArticleAsViewed(articleCardsAdapter.getItem(index));
+                    }
+                    if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {
+                        presenter.getArticles();
+                    }
+                    if ((articleCardsAdapter.getCount() - cardStackView.getTopIndex()) == 0) {
+                        isArticlesStackEmpty = true;
+                        handleNoArticlesLayoutVisibility();
+                    }
+                    state = presenter.getState();
                 }
-                if (cardStackView.getTopIndex() == articleCardsAdapter.getCount() - 9) {
-                    presenter.getArticles();
+
+                @SuppressWarnings("ConstantConditions")
+                @Override
+                public void onCardClicked(int index) {
+                    presenter.setArticleAsClicked(articleCardsAdapter.getItem(index));
+                    presenter.upsertFavoriteSourceClicks(DomainUtils.getDomainName(articleCardsAdapter.getItem(index).getUrl()));
+                    ChromePagesHelper.openChromePageHelper(getActivity(), articleCardsAdapter.getItem(index).getUrl());
                 }
-                if ((articleCardsAdapter.getCount() - cardStackView.getTopIndex()) == 0) {
-                    isArticlesStackEmpty = true;
-                    handleNoArticlesLayoutVisibility();
+
+                @Override
+                public void onCardDragging(float percentX, float percentY) {
                 }
-                state = presenter.getState();
-            }
 
-            @SuppressWarnings("ConstantConditions")
-            @Override
-            public void onCardClicked(int index) {
-                presenter.setArticleAsClicked(articleCardsAdapter.getItem(index));
-                presenter.upsertFavoriteSourceClicks(DomainUtils.getDomainName(articleCardsAdapter.getItem(index).getUrl()));
-                ChromePagesHelper.openChromePageHelper(getActivity(), articleCardsAdapter.getItem(index).getUrl());
-            }
+                @Override
+                public void onCardReversed() {
+                }
 
-            @Override
-            public void onCardDragging(float percentX, float percentY) {
-            }
+                @Override
+                public void onCardMovedToOrigin() {
+                }
+            });
 
-            @Override
-            public void onCardReversed() {
+            if (getActivity() != null) {
+                presenter = new ArticleCardsPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getRequestFactory(),
+                        ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, language, q);
             }
-
-            @Override
-            public void onCardMovedToOrigin() {
-            }
-        });
-
-        presenter = new ArticleCardsPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getRequestFactory(),
-                ((TopicalityApplication) getActivity().getApplication()).getDatabase(), category, country, language, q);
-        presenter.subscribe(state);
+            presenter.subscribe(state);
+        }
         if (isArticlesStackEmpty) {
             progressBar.setVisibility(View.GONE);
         }
@@ -259,7 +262,9 @@ public class ArticleCardsFragment extends Fragment implements ArticleCardsContra
         isArticlesStackEmpty = false;
         state = null;
         presenter.unsubscribe();
-        onViewCreated(getView(), null);
+        if (getView() != null) {
+            onViewCreated(getView(), null);
+        }
     }
 
     @Override

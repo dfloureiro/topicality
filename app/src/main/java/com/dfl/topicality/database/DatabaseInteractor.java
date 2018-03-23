@@ -16,7 +16,7 @@ import io.reactivex.Single;
 
 public class DatabaseInteractor {
 
-    private AppDatabase appDatabase;
+    private final AppDatabase appDatabase;
 
     public DatabaseInteractor(Context context) {
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "topicality_saved_articles_database")

@@ -1,9 +1,5 @@
 package com.dfl.topicality.news.article;
 
-/**
- * Created by loureiro on 29-01-2018.
- */
-
 import com.dfl.topicality.base.BasePresenter;
 import com.dfl.topicality.base.BaseState;
 import com.dfl.topicality.base.BaseView;

@@ -33,7 +33,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference.getKey().equals("ABOUT_KEY")) {
+        if (preference.getKey().equals("ABOUT_KEY") && getFragmentManager() != null) {
             DialogFragment newFragment = new AboutDialogFragment();
             newFragment.show(getFragmentManager(), "about");
         } else if (preference.getKey().equals("CONTACT_US_KEY")) {
@@ -54,15 +54,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final SpannableString message = new SpannableString(getContext().getText(R.string.about_dialog_message));
-            Linkify.addLinks(message, Linkify.WEB_URLS);
+            if(getContext()!=null) {
+                final SpannableString message = new SpannableString(getContext().getText(R.string.about_dialog_message));
+                Linkify.addLinks(message, Linkify.WEB_URLS);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.about_dialog_title)
-                    .setMessage(message)
-                    .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                    });
-            return builder.create();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.about_dialog_title)
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.ok, (dialog, id) -> {
+                        });
+                return builder.create();
+            }else {
+                throw new NullPointerException("Context cannot be null");
+            }
         }
     }
 }

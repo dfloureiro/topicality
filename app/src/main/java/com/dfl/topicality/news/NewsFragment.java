@@ -56,9 +56,11 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        country = ((TopicalityApplication) getActivity().getApplication()).getUserSettingsPersistence().getCountry();
-        viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
+        if (getActivity() != null) {
+            country = ((TopicalityApplication) getActivity().getApplication()).getUserSettingsPersistence().getCountry();
+            viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
+            tabLayout.setupWithViewPager(viewPager);
+        }
     }
 
     @Override

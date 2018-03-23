@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.dfl.topicality.database.DatabaseInteractor;
 import com.dfl.topicality.settings.UserSettingsPersistence;
+import com.squareup.leakcanary.LeakCanary;
 
 import dfl.com.newsapikotin.NewsApi;
 
@@ -16,6 +17,15 @@ public class TopicalityApplication extends Application {
     private UserSettingsPersistence userSettingsPersistence;
     private DatabaseInteractor databaseInteractor;
     private NewsApi requestFactory;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+    }
 
     public UserSettingsPersistence getUserSettingsPersistence() {
         if (userSettingsPersistence == null) {

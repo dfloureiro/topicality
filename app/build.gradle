@@ -46,6 +46,15 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    configurations.all { config ->
+        if (config.name.contains('UnitTest')) {
+            config.resolutionStrategy.eachDependency { details ->
+                if (details.requested.group == 'com.squareup.leakcanary' && details.requested.name == 'leakcanary-android') {
+                    details.useTarget(group: details.requested.group, name: 'leakcanary-android-no-op', version: details.requested.version)
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -59,6 +68,10 @@ dependencies {
     androidTestImplementation("android.arch.persistence.room:testing:1.1.0-alpha2") {
         exclude group: 'com.google.code.gson', module: 'gson'
     }
+
+    //LEAKCANARY
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAKCANARY_VERSION}"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${LEAKCANARY_VERSION}"
 
     //ANDROID
     implementation "com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"

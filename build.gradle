@@ -8,7 +8,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath 'com.google.gms:google-services:3.2.0'
         classpath 'io.fabric.tools:gradle:1.25.1'
 
@@ -42,13 +42,15 @@ ext {
 
     BUTTERKNIFE_VERSION = '8.8.1'
 
-    CARDSTACK_VERSION = '1.0.0-beta8'
+    CARDSTACK_VERSION = '1.0.0-beta9'
 
     PARCELER_VERSION = '1.1.9'
 
     GLIDE_VERSION = '4.5.0'
 
-    ROOM_VERSION = '1.1.0-beta1'
+    DAGGER2_VERSION = '2.15'
+
+    ROOM_VERSION = '1.1.0-beta2'
     ROOM_ANNOTATION_VERSION = '1.1.0-beta1'
     ROOM_REACTIVE_VERSION = '1.1.1'
 

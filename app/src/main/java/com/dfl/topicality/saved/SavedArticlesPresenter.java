@@ -21,7 +21,7 @@ public class SavedArticlesPresenter implements SavedArticlesContract.Presenter {
     private final ArrayList<String> databaseArticleIdsList;
     private final CompositeDisposable compositeDisposable;
 
-    SavedArticlesPresenter(SavedArticlesContract.View view, DatabaseInteractor databaseInteractor) {
+    public SavedArticlesPresenter(SavedArticlesContract.View view, DatabaseInteractor databaseInteractor) {
         this.view = view;
         this.databaseInteractor = databaseInteractor;
 

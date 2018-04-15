@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.015" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.975" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <ImageView
+        android:id="@+id/card_item_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop"
+        tools:background="@android:color/darker_gray"
+        tools:ignore="ContentDescription"
+        tools:layout_height="80dp"
+        tools:layout_width="80dp" />
+
+    <TextView
+        android:id="@+id/card_item_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:maxLines="2"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@id/card_item_image_view"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop"
+        tools:text="title example" />
+
+    <TextView
+        android:id="@+id/card_item_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:maxLines="5"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@+id/card_item_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/card_item_title"
+        tools:text="description example" />
+
+    <ImageButton
+        android:id="@+id/card_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/card_item_image_view"
+        app:layout_constraintTop_toBottomOf="@id/card_item_description"
+        app:srcCompat="@drawable/ic_bookmark"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/card_share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/card_save_button"
+        app:layout_constraintTop_toBottomOf="@id/card_item_description"
+        app:srcCompat="@drawable/ic_newspaper"
+        tools:ignore="ContentDescription" />
+
+</android.support.constraint.ConstraintLayout>

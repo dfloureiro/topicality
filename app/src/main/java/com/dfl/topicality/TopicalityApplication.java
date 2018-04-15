@@ -1,12 +1,11 @@
 package com.dfl.topicality;
 
+import android.app.Activity;
 import android.app.Application;
 
-import com.dfl.topicality.database.DatabaseInteractor;
-import com.dfl.topicality.settings.UserSettingsPersistence;
+import com.dfl.topicality.injection.factories.ComponentsFactory;
+import com.dfl.topicality.injection.factories.ModulesFactory;
 import com.squareup.leakcanary.LeakCanary;
-
-import dfl.com.newsapikotin.NewsApi;
 
 /**
  * Created by loureiro on 31-01-2018.
@@ -14,9 +13,11 @@ import dfl.com.newsapikotin.NewsApi;
 
 public class TopicalityApplication extends Application {
 
-    private UserSettingsPersistence userSettingsPersistence;
-    private DatabaseInteractor databaseInteractor;
-    private NewsApi requestFactory;
+    private ComponentsFactory componentsFactory;
+
+    public static TopicalityApplication get(Activity activity) {
+        return (TopicalityApplication) activity.getApplication();
+    }
 
     @Override
     public void onCreate() {
@@ -25,26 +26,11 @@ public class TopicalityApplication extends Application {
             return;
         }
         LeakCanary.install(this);
+
+        componentsFactory = new ComponentsFactory(this, new ModulesFactory());
     }
 
-    public UserSettingsPersistence getUserSettingsPersistence() {
-        if (userSettingsPersistence == null) {
-            userSettingsPersistence = new UserSettingsPersistence(getApplicationContext());
-        }
-        return userSettingsPersistence;
-    }
-
-    public DatabaseInteractor getDatabase() {
-        if (databaseInteractor == null) {
-            databaseInteractor = new DatabaseInteractor(getApplicationContext());
-        }
-        return databaseInteractor;
-    }
-
-    public NewsApi getRequestFactory() {
-        if (requestFactory == null) {
-            requestFactory = new NewsApi(BuildConfig.NEWS_API_KEY, getCacheDir(), 60, 10 * 1024 * 1024L, 45L, 45L);
-        }
-        return requestFactory;
+    public ComponentsFactory getComponentsFactory() {
+        return componentsFactory;
     }
 }

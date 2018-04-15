@@ -5,22 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dfl.topicality.R;
 import com.dfl.topicality.TopicalityApplication;
-import com.dfl.topicality.UnscrollableViewPager;
-import com.dfl.topicality.news.article.ArticleCardsFragment;
+
+import java.util.Objects;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dfl.com.newsapikotin.enums.Category;
-import dfl.com.newsapikotin.enums.Country;
 
 /**
  * Created by loureiro on 30-01-2018.
@@ -31,17 +30,24 @@ public class NewsFragment extends Fragment {
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.pager)
-    UnscrollableViewPager viewPager;
+    ViewPager viewPager;
+
+    @Inject
+    NewsSectionPagerAdapter newsSectionPagerAdapter;
 
     private Unbinder unbinder;
-    private Country country;
-
-    public NewsFragment() {
-
-    }
 
     public static NewsFragment newInstance() {
         return new NewsFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TopicalityApplication.get(Objects.requireNonNull(getActivity()))
+                .getComponentsFactory()
+                .getNewsComponent(this)
+                .inject(this);
     }
 
     @Nullable
@@ -55,75 +61,13 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (getActivity() != null) {
-            country = ((TopicalityApplication) getActivity().getApplication()).getUserSettingsPersistence().getCountry();
-            viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
-            tabLayout.setupWithViewPager(viewPager);
-        }
+        viewPager.setAdapter(newsSectionPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    private class SectionPagerAdapter extends FragmentPagerAdapter {
-
-        SectionPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return ArticleCardsFragment.newInstance(Category.GENERAL, country);
-                case 1:
-                    return ArticleCardsFragment.newInstance(Category.SPORTS, country);
-                case 2:
-                    return ArticleCardsFragment.newInstance(Category.TECHNOLOGY, country);
-                case 3:
-                    return ArticleCardsFragment.newInstance(Category.BUSINESS, country);
-                case 4:
-                    return ArticleCardsFragment.newInstance(Category.ENTERTAINMENT, country);
-                case 5:
-                    return ArticleCardsFragment.newInstance(Category.SCIENCE, country);
-                case 6:
-                    return ArticleCardsFragment.newInstance(Category.HEALTH, country);
-                default:
-                    return ArticleCardsFragment.newInstance(Category.GENERAL, country);
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 7;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.general_category);
-                case 1:
-                    return getString(R.string.sports_category);
-                case 2:
-                    return getString(R.string.technology_category);
-                case 3:
-                    return getString(R.string.business_category);
-                case 4:
-                    return getString(R.string.entertainment_category);
-                case 5:
-                    return getString(R.string.science_category);
-                case 6:
-                    return getString(R.string.health_category);
-                default:
-                    return getString(R.string.general_category);
-            }
-        }
-
-
     }
 }

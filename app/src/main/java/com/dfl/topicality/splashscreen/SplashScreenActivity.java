@@ -14,6 +14,8 @@ import com.dfl.topicality.R;
 import com.dfl.topicality.TopicalityApplication;
 import com.dfl.topicality.settings.UserSettingsPersistence;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,8 +33,10 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
     @BindView(R.id.network_error_layout)
     RelativeLayout networkErrorLayout;
 
-    private SplashScreenContract.Presenter presenter;
-    private UserSettingsPersistence userSettingsPersistence;
+    @Inject
+    SplashScreenPresenter presenter;
+    @Inject
+    UserSettingsPersistence userSettingsPersistence;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,19 +44,16 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        userSettingsPersistence = ((TopicalityApplication) getApplication()).getUserSettingsPersistence();
+        TopicalityApplication.get(this).getComponentsFactory().getSplashscreenComponent(this).inject(this);
 
         if (userSettingsPersistence.isFirstBoot()) {
             userSettingsPersistence.setCountry(userSettingsPersistence.getCountry().toString());
             userSettingsPersistence.setLanguage(userSettingsPersistence.getLanguage().toString());
-            presenter = new SplashScreenPresenter(this, ((TopicalityApplication) getApplication()).getRequestFactory(),
-                    ((TopicalityApplication) getApplication()).getDatabase(), userSettingsPersistence.getCountry(), userSettingsPersistence.getLanguage());
             presenter.subscribe(null);
         } else {
             finishSplash();
         }
     }
-
 
     @Override
     public void finishSplash() {
@@ -80,9 +81,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
     @Override
     protected void onPause() {
         super.onPause();
-        if (presenter != null) {
-            presenter.unsubscribe();
-        }
+        presenter.unsubscribe();
     }
 
     @Override

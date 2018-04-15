@@ -32,7 +32,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
 
     private final CompositeDisposable compositeDisposable;
 
-    SplashScreenPresenter(SplashScreenContract.View view, NewsApi requestFactory, DatabaseInteractor databaseInteractor, Country country, Language language) {
+    public SplashScreenPresenter(SplashScreenContract.View view, NewsApi requestFactory, DatabaseInteractor databaseInteractor, Country country, Language language) {
         this.view = view;
         this.requestFactory = requestFactory;
         this.databaseInteractor = databaseInteractor;

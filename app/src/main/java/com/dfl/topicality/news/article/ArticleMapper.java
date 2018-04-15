@@ -11,9 +11,9 @@ import dfl.com.newsapikotin.Model.Article;
  * Created by loureiro on 17-02-2018.
  */
 
-class ArticleMapper {
+public class ArticleMapper {
 
-    static List<DatabaseArticle> mapArticlesToDatabaseArticles(List<Article> articles) {
+    public static List<DatabaseArticle> mapArticlesToDatabaseArticles(List<Article> articles) {
         List<DatabaseArticle> databaseArticles = new ArrayList<>();
         for (Article article : articles) {
             String articleSource = article.getSource() != null ? article.getSource().getName() : "Unknown";

@@ -21,7 +21,7 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
     private final ImageLoader imageLoader;
     private final SavedArticlesContract.Presenter presenter;
 
-    SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, ImageLoader imageLoader, SavedArticlesContract.Presenter presenter) {
+    public SavedArticlesAdapter(List<DatabaseArticle> databaseArticleList, ImageLoader imageLoader, SavedArticlesContract.Presenter presenter) {
         this.databaseArticleList = databaseArticleList;
         this.imageLoader = imageLoader;
         this.presenter = presenter;
@@ -48,12 +48,12 @@ public class SavedArticlesAdapter extends RecyclerView.Adapter<SavedArticleViewH
         return databaseArticleList != null ? databaseArticleList.size() : 0;
     }
 
-    void addDatabaseArticle(DatabaseArticle databaseArticle) {
+    public void addDatabaseArticle(DatabaseArticle databaseArticle) {
         databaseArticleList.add(databaseArticle);
         notifyItemInserted(getItemCount());
     }
 
-    void deleteDatabaseArticle(int index) {
+    public void deleteDatabaseArticle(int index) {
         databaseArticleList.remove(index);
         notifyItemRemoved(index);
     }

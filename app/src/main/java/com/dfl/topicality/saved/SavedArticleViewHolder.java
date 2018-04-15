@@ -3,7 +3,6 @@ package com.dfl.topicality.saved;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dfl.topicality.ChromePagesHelper;
@@ -21,8 +20,6 @@ import butterknife.ButterKnife;
 @SuppressWarnings("WeakerAccess")
 public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.saved_item_progress_bar)
-    ProgressBar progressBar;
     @BindView(R.id.saved_item_image_view)
     ImageView image;
     @BindView(R.id.saved_item_title)
@@ -44,7 +41,7 @@ public class SavedArticleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImage(ImageLoader imageLoader, String urlToImage) {
-        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage, progressBar, image);
+        imageLoader.loadImageIntoImageViewWithProgressBar(urlToImage, image);
     }
 
     public void setTitle(String title) {

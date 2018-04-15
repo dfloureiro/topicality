@@ -3,6 +3,7 @@ package com.dfl.topicality.saved;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,16 +16,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.dfl.topicality.ImageLoader;
 import com.dfl.topicality.R;
 import com.dfl.topicality.TopicalityApplication;
 import com.dfl.topicality.database.DatabaseArticle;
 
-import java.util.ArrayList;
+import java.util.Objects;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.support.annotation.VisibleForTesting.PROTECTED;
 
 /**
  * Created by loureiro on 30-01-2018.
@@ -32,25 +36,33 @@ import butterknife.Unbinder;
 
 public class SavedArticlesFragment extends Fragment implements SavedArticlesContract.View {
 
-    @BindView(R.id.recycler_view_layout)
+    @BindView(R.id.saved_recycler_view_layout)
     RecyclerView recyclerView;
     @BindView(R.id.fragment_saved_layout)
     LinearLayout container;
     @BindView(R.id.no_saved_bookmarks_layout)
     RelativeLayout noSavedBookmarksLayout;
 
-    private SavedArticlesAdapter savedArticlesAdapter;
-    private SavedArticlesContract.Presenter presenter;
-    private ImageLoader imageLoader;
+    @Inject
+    @VisibleForTesting(otherwise = PROTECTED)
+    public
+    SavedArticlesPresenter presenter;
+    @Inject
+    @VisibleForTesting(otherwise = PROTECTED)
+    public
+    SavedArticlesAdapter savedArticlesAdapter;
 
     private Unbinder unbinder;
 
-    public SavedArticlesFragment() {
-
-    }
-
     public static SavedArticlesFragment newInstance() {
         return new SavedArticlesFragment();
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TopicalityApplication.get(Objects.requireNonNull(getActivity())).getComponentsFactory().getSavedArticlesComponent(this).inject(this);
     }
 
     @Nullable
@@ -65,17 +77,9 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (getActivity() != null) {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            imageLoader = new ImageLoader(getActivity());
-            presenter = new SavedArticlesPresenter(this, ((TopicalityApplication) getActivity().getApplication()).getDatabase());
-            recyclerView.setLayoutManager(layoutManager);
-            savedArticlesAdapter = new SavedArticlesAdapter(new ArrayList<>(0), imageLoader, presenter);
-            recyclerView.setAdapter(savedArticlesAdapter);
-            recyclerView.addItemDecoration(
-                    new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        }
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(savedArticlesAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -87,7 +91,6 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
                 presenter.removeFromSaved(((SavedArticleViewHolder) viewHolder).getUrl(), viewHolder.getAdapterPosition());
             }
         });
-
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         presenter.subscribe(null);
@@ -129,11 +132,6 @@ public class SavedArticlesFragment extends Fragment implements SavedArticlesCont
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (presenter != null) {
-            presenter.unsubscribe();
-        }
-        savedArticlesAdapter = null;
-        presenter = null;
-        imageLoader = null;
+        presenter.unsubscribe();
     }
 }

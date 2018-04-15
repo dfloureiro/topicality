@@ -54,7 +54,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            if(getContext()!=null) {
+            if (getContext() != null) {
                 final SpannableString message = new SpannableString(getContext().getText(R.string.about_dialog_message));
                 Linkify.addLinks(message, Linkify.WEB_URLS);
 
@@ -64,7 +64,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         .setPositiveButton(android.R.string.ok, (dialog, id) -> {
                         });
                 return builder.create();
-            }else {
+            } else {
                 throw new NullPointerException("Context cannot be null");
             }
         }

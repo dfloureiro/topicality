@@ -10,7 +10,7 @@ import dagger.Provides;
 @Module
 public class FragmentContextModule {
 
-    Context context;
+    private final Context context;
 
     public FragmentContextModule(Context context) {
         this.context = context;

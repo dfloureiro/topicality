@@ -26,7 +26,7 @@ public class ArticleCardsTopModule {
     private final ArticleCardsTopFragment articleCardsTopFragment;
     private Category category;
     private Country country;
-    private String q;
+    private final String q;
 
     public ArticleCardsTopModule(ArticleCardsTopFragment articleCardsTopFragment, Bundle arguments) {
         this.articleCardsTopFragment = articleCardsTopFragment;

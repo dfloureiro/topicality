@@ -70,17 +70,21 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
                             List<FavoriteSource> favoriteSources = new ArrayList<>();
                             if (articles.getArticles() != null) {
                                 for (Model.Article article : articles.getArticles()) {
-                                    String url = DomainUtils.getDomainName(article.getUrl());
-                                    if (url != null) {
-                                        favoriteSources.add(new FavoriteSource(url, 0, 0));
+                                    if (article.getUrl() != null) {
+                                        String url = DomainUtils.getDomainName(article.getUrl());
+                                        if (url != null) {
+                                            favoriteSources.add(new FavoriteSource(url, 0, 0));
+                                        }
                                     }
                                 }
                             }
                             if (sources.getSources() != null) {
                                 for (Model.Source source : sources.getSources()) {
-                                    String url = DomainUtils.getDomainName(source.getUrl());
-                                    if (url != null) {
-                                        favoriteSources.add(new FavoriteSource(url, 0, 0));
+                                    if (source.getUrl() != null) {
+                                        String url = DomainUtils.getDomainName(source.getUrl());
+                                        if (url != null) {
+                                            favoriteSources.add(new FavoriteSource(url, 0, 0));
+                                        }
                                     }
                                 }
                             }

@@ -1,7 +1,5 @@
 <resources>
     <dimen name="bottom_navigation_view_elevation">16dp</dimen>
-    <dimen name="corner_radius_card">8dp</dimen>
-    <dimen name="size_text_view_card">20sp</dimen>
     <dimen name="text_size_small_padding">10dp</dimen>
     <dimen name="text_size_small_size">12sp</dimen>
 </resources>

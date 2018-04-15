@@ -18,12 +18,12 @@ import static org.mockito.Mockito.mock;
 
 public class TestComponentsFactory extends ComponentsFactory {
 
-    private ArticleCardsEverythingComponent articleCardsEverythingComponent;
-    private ArticleCardsTopComponent articleCardsTopComponent;
-    private MainActivityComponent mainActivityComponent;
-    private NewsComponent newsComponent;
-    private SavedArticlesComponent savedArticlesComponent;
-    private SplashscreenComponent splashscreenComponent;
+    private final ArticleCardsEverythingComponent articleCardsEverythingComponent;
+    private final ArticleCardsTopComponent articleCardsTopComponent;
+    private final MainActivityComponent mainActivityComponent;
+    private final NewsComponent newsComponent;
+    private final SavedArticlesComponent savedArticlesComponent;
+    private final SplashscreenComponent splashscreenComponent;
 
     public TestComponentsFactory(TopicalityApplication topicalityApplication, ModulesFactory modulesFactory) {
         super(topicalityApplication, modulesFactory);

@@ -24,7 +24,7 @@ public class ArticleCardsEverythingModule {
 
     private final ArticleCardsEverythingFragment articleCardsEverythingFragment;
     private Language language;
-    private String q;
+    private final String q;
 
     public ArticleCardsEverythingModule(ArticleCardsEverythingFragment articleCardsEverythingFragment, Bundle arguments) {
         this.articleCardsEverythingFragment = articleCardsEverythingFragment;

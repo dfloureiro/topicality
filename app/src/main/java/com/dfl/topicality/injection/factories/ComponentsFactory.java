@@ -24,8 +24,8 @@ import com.dfl.topicality.splashscreen.SplashScreenActivity;
 
 public class ComponentsFactory {
 
-    private TopicalityComponent topicalityComponent;
-    private ModulesFactory modulesFactory;
+    private final TopicalityComponent topicalityComponent;
+    private final ModulesFactory modulesFactory;
 
     public ComponentsFactory(TopicalityApplication topicalityApplication, ModulesFactory modulesFactory) {
         topicalityComponent = DaggerTopicalityComponent.builder()

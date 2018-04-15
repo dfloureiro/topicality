@@ -21,10 +21,6 @@
     <string name="no_articles_saved_to_read_later">No articles saved to read later</string>
     <string name="swipe_cards_down_to_save_them_for_later">Swipe the card down to save the article</string>
 
-    <!--no more articles layout-->
-    <string name="that_s_all_the_articles_we_have_for_now">That\'s all the articles we have for now</string>
-    <string name="check_the_other_categories_for_more">Check the other categories for more</string>
-
     <!--preferences-->
     <string name="locale_preference_category_title">Location preferences</string>
     <string name="countries_dialog_title_preference">Countries</string>

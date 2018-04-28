@@ -12,6 +12,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class ArticleCardsTopPresenter extends ArticleCardsPresenter implements ArticleCardsPresenterInterface {
 
+    private final ArticleCardsTopFragment articleCardsTopFragment;
     private final NewsApi requestFactory;
     private final Category category;
     private final Country country;
@@ -20,6 +21,7 @@ public class ArticleCardsTopPresenter extends ArticleCardsPresenter implements A
 
     public ArticleCardsTopPresenter(ArticleCardsTopFragment view, NewsApi requestFactory, DatabaseInteractor databaseInteractor, Category category, Country country, String q, int page, CompositeDisposable compositeDisposable) {
         super(view, databaseInteractor, compositeDisposable);
+        this.articleCardsTopFragment = view;
         this.requestFactory = requestFactory;
         this.category = category;
         this.country = country;
@@ -29,8 +31,9 @@ public class ArticleCardsTopPresenter extends ArticleCardsPresenter implements A
 
     @Override
     public void subscribe(ArticleCardsState articleCardsState) {
-        if (articleCardsState != null) {
+        if (articleCardsState != null && !articleCardsState.getRemainingArticles().isEmpty()) {
             this.page = articleCardsState.getPage();
+            articleCardsTopFragment.hideProgressbar();
             showArticles(articleCardsState.getRemainingArticles());
         } else {
             getTopHeadlineArticles();

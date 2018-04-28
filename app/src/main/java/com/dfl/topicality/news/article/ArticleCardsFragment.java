@@ -48,7 +48,14 @@ public class ArticleCardsFragment extends Fragment {
     @Inject
     ArticleCardsAdapter articleCardsAdapter;
 
+    private boolean isLoading;
     private Unbinder unbinder;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Nullable
     @Override
@@ -76,8 +83,9 @@ public class ArticleCardsFragment extends Fragment {
                     int totalItemCount = linearLayoutManager.getItemCount();
                     int pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
 
-                    if (progressBar.getVisibility() == View.GONE) {
+                    if (!isLoading) {
                         if ((visibleItemCount + visibleItemCount / 2 + pastVisiblesItems) >= totalItemCount) {
+                            isLoading = true;
                             showProgressBar();
                             articleCardsPresenterInterface.getNextArticles();
                         }
@@ -92,6 +100,7 @@ public class ArticleCardsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         ArticleCardsState state = articleCardsPresenterInterface.getState();
+        // TODO: 17-04-2018 this state can have a size bigger then 1MB... this will crash the app
         state.setRemainingArticles(articleCardsAdapter.getDatabaseArticleList());
         outState.putParcelable(ArticleCardsState.ARTICLE_CARDS_STATE, state);
         if (recyclerView != null) {
@@ -102,7 +111,6 @@ public class ArticleCardsFragment extends Fragment {
 
     public void addArticle(DatabaseArticle databaseArticle) {
         articleCardsAdapter.addDatabaseArticle(databaseArticle);
-        hideProgressbar();
     }
 
     private void refresh() {
@@ -112,12 +120,10 @@ public class ArticleCardsFragment extends Fragment {
     }
 
     public void showNetworkError() {
-        hideProgressbar();
         networkErrorLayout.setVisibility(View.VISIBLE);
     }
 
     public void showUnknownError() {
-        hideProgressbar();
         unknownErrorLayout.setVisibility(View.VISIBLE);
     }
 
@@ -134,6 +140,7 @@ public class ArticleCardsFragment extends Fragment {
     }
 
     public void hideProgressbar() {
+        isLoading = false;
         progressBar.setVisibility(View.GONE);
     }
 

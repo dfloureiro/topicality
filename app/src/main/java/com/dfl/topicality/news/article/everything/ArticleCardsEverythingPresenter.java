@@ -17,6 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleCardsEverythingPresenter extends ArticleCardsPresenter implements ArticleCardsPresenterInterface {
 
+    private final ArticleCardsEverythingFragment articleCardsEverythingFragment;
     private final NewsApi requestFactory;
     private final DatabaseInteractor databaseInteractor;
     private final Language language;
@@ -25,6 +26,7 @@ public class ArticleCardsEverythingPresenter extends ArticleCardsPresenter imple
 
     public ArticleCardsEverythingPresenter(ArticleCardsEverythingFragment view, NewsApi requestFactory, DatabaseInteractor databaseInteractor, Language language, String q, int page, CompositeDisposable compositeDisposable) {
         super(view, databaseInteractor, compositeDisposable);
+        articleCardsEverythingFragment = view;
         this.requestFactory = requestFactory;
         this.databaseInteractor = databaseInteractor;
         this.language = language;
@@ -34,8 +36,9 @@ public class ArticleCardsEverythingPresenter extends ArticleCardsPresenter imple
 
     @Override
     public void subscribe(ArticleCardsState articleCardsState) {
-        if (articleCardsState != null) {
+        if (articleCardsState != null && !articleCardsState.getRemainingArticles().isEmpty()) {
             this.page = articleCardsState.getPage();
+            articleCardsEverythingFragment.hideProgressbar();
             showArticles(articleCardsState.getRemainingArticles());
         } else {
             getEverythingArticles();

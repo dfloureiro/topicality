@@ -37,9 +37,14 @@ public class ArticleCardsAdapter extends RecyclerView.Adapter<ArticleCardViewHol
     @Override
     public void onBindViewHolder(@NonNull ArticleCardViewHolder holder, int position) {
         DatabaseArticle databaseArticle = databaseArticleList.get(position);
+        holder.setUrl(databaseArticle.getUrl());
+        holder.setDatabaseArticle(databaseArticle);
         holder.setUrlToImage(imageLoader, databaseArticle.getUrlToImage());
         holder.setTitle(databaseArticle.getTitle());
         holder.setDescription(databaseArticle.getDescription());
+        if (databaseArticle.getIsClicked() == 1) {
+            holder.setAsViewed();
+        }
     }
 
     @Override
